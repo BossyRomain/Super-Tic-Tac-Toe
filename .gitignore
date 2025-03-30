@@ -13,3 +13,9 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# GDExtension generated files
+src/*.os
+.sconsign.dblite
+lib_super_tic_tac_toe.*
+super_tic_tac_toe.gdextension.uid
