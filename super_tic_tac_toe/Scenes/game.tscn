@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://coplkew0qe0cm"]
+
+[ext_resource type="Script" uid="uid://boe7xvbd7llel" path="res://Scripts/board_manager.gd" id="1_ebmjs"]
+[ext_resource type="Texture2D" uid="uid://b2qxis7xw5snl" path="res://Assets/tiles.png" id="2_qxrlw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
+texture = ExtResource("2_qxrlw")
+texture_region_size = Vector2i(300, 300)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ebmjs"]
+tile_size = Vector2i(50, 50)
+sources/0 = SubResource("TileSetAtlasSource_wrm1d")
+
+[node name="Game" type="Node2D"]
+
+[node name="BoardManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map")]
+script = ExtResource("1_ebmjs")
+tiles_tile_map = NodePath("TilesLayer")
+
+[node name="TilesLayer" type="TileMapLayer" parent="BoardManager"]
+tile_set = SubResource("TileSet_ebmjs")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(577, 326)

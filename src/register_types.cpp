@@ -4,12 +4,16 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
+#include "board/board.h"
+
 using namespace godot;
 
 void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
 		return;
 	}
+
+	GDREGISTER_CLASS(Board);
 }
 
 void uninitialize_gdextension_module(ModuleInitializationLevel p_level) {
