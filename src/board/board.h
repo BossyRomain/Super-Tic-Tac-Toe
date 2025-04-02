@@ -26,6 +26,12 @@ public:
     int get_rows() const;
     
     int get_cols() const;
+
+    /**
+     * Returns the value in the cell at the given coordinnates.
+     * Returns -1 if the coordinnates are outside of the board.
+     */
+    int get_cell_at(Vector2i coords) const;
     
     /**
      * Change the number of rows of the board.
@@ -38,6 +44,17 @@ public:
      * Do nothing if the new numbers of columns if less or equal to 0.
      */
     void set_cols(int cols);
+
+    /**
+     * Change the value in the cell at the given coordinnates.
+     * Returns true if the change was successfull, else false.
+     */
+    bool set_cell_at(Vector2i coords, int value);
+
+    /**
+     * Returns true if the coordinnates are on the board, else false.
+     */
+    bool coords_in(Vector2i coords) const;
 
 protected:
 

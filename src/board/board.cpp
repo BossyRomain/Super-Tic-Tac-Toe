@@ -35,6 +35,13 @@ int Board::get_cols() const {
     return m_cols;
 }
 
+int Board::get_cell_at(Vector2i coords) const {
+    if(coords_in(coords)) {
+        return m_cells[coords.y][coords.x];
+    }
+    return -1;
+}
+
 void Board::set_rows(int rows) {
     if(rows > 0 && m_rows != rows) {
         resize(rows, m_cols);
@@ -47,6 +54,14 @@ void Board::set_cols(int cols) {
     }
 }
 
+bool Board::set_cell_at(Vector2i coords, int value) {
+    if(coords_in(coords)) {
+        m_cells[coords.y][coords.x] = value;
+        return true;
+    }
+    return false;
+}
+
 void Board::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_rows"), &Board::get_rows);
     ClassDB::bind_method(D_METHOD("set_rows", "rows"), &Board::set_rows);
@@ -54,8 +69,15 @@ void Board::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_cols"), &Board::get_cols);
     ClassDB::bind_method(D_METHOD("set_cols", "cols"), &Board::set_cols);
 
+    ClassDB::bind_method(D_METHOD("get_cell_at", "coords"), &Board::get_cell_at);
+    ClassDB::bind_method(D_METHOD("set_cell_at", "coords", "value"), &Board::set_cell_at);
+
     ADD_PROPERTY(PropertyInfo(Variant::INT, "rows"), "set_rows", "get_rows");
     ADD_PROPERTY(PropertyInfo(Variant::INT, "cols"), "set_cols", "get_cols");
+}
+
+bool Board::coords_in(Vector2i coords) const {
+    return coords.x >= 0 && coords.x < m_cols && coords.y >= 0 && coords.y < m_rows;
 }
 
 void Board::resize(int rows, int cols) {

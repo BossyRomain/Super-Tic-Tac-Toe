@@ -3,6 +3,7 @@ extends Node
 
 # Tile map layer where the tiles are drawned
 @export var tiles_tile_map: TileMapLayer
+@export var pawns_tile_map:  TileMapLayer
 
 var board: Board
 
@@ -13,11 +14,19 @@ func _init() -> void:
 
 func _ready() -> void:
 	assert(tiles_tile_map != null, "A TileMapLayer is needed to draw the board's tiles")
+	assert(pawns_tile_map != null, "A TileMapLayer is needed to draw the player's pawns")
 	var tiles_size = Config.board_tiles_size
 	tiles_tile_map.tile_set.tile_size = Vector2(tiles_size, tiles_size)
+	pawns_tile_map.tile_set.tile_size = Vector2(tiles_size, tiles_size)
 	_scale_board()
 	_center_board()
 	_draw_tiles()
+
+func place_pawn(coords: Vector2i, player_id: int) -> bool:
+	var placed = board.set_cell_at(coords, player_id)
+	if placed:
+		pawns_tile_map.set_cell(coords, 0, Vector2i(player_id - 1, 0))
+	return placed
 
 # Draw only the tiles of the board (not the player's pawns)
 func _draw_tiles() -> void:
@@ -35,13 +44,16 @@ func _scale_board() -> void:
 		min / float(tiles_size * (board.rows + 1))
 		)
 	tiles_tile_map.scale = Vector2(min, min)
+	pawns_tile_map.scale = Vector2(min, min)
 
 # Center the board in the middle of the window
 func _center_board() -> void:
 	var tiles_size = Config.board_tiles_size
 	var scaled_tiles_size = tiles_size * tiles_tile_map.scale
 	var window_center = get_viewport().get_camera_2d().get_screen_center_position()
-	tiles_tile_map.position = Vector2(
+	var position = Vector2(
 		window_center.x - scaled_tiles_size.x * board.cols / 2, 
 		window_center.y - scaled_tiles_size.y * board.rows / 2
 		)
+	tiles_tile_map.position = position
+	pawns_tile_map.position = position
