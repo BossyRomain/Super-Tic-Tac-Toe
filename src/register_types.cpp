@@ -5,6 +5,7 @@
 #include <godot_cpp/godot.hpp>
 
 #include "board/board.h"
+#include "players/player.h"
 
 using namespace godot;
 
@@ -14,6 +15,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	}
 
 	GDREGISTER_CLASS(Board);
+	GDREGISTER_CLASS(Player);
 }
 
 void uninitialize_gdextension_module(ModuleInitializationLevel p_level) {

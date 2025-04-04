@@ -17,6 +17,7 @@ mono_crash.*.json
 # GDExtension generated files
 src/*.os
 src/board/*.os
+src/players/*.os
 .sconsign.dblite
 lib_super_tic_tac_toe.*
 super_tic_tac_toe.gdextension.uid

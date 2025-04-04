@@ -43,9 +43,104 @@ tile_set = SubResource("TileSet_ebmjs")
 [node name="PawnsLayer" type="TileMapLayer" parent="BoardManager"]
 tile_set = SubResource("TileSet_qxrlw")
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("board_manager")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("board_manager", "place_btn", "remove_btn", "replace_btn", "ban_btn", "place_label", "remove_label", "replace_label", "ban_label")]
 script = ExtResource("3_wrm1d")
 board_manager = NodePath("../BoardManager")
+place_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer/PlaceBtn")
+remove_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer2/RemoveBtn")
+replace_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceBtn")
+ban_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanBtn")
+place_label = NodePath("../Control/VBoxContainer/AspectRatioContainer/PlaceLabel")
+remove_label = NodePath("../Control/VBoxContainer/AspectRatioContainer2/RemoveLabel")
+replace_label = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceLabel")
+ban_label = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanLabel")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(577, 326)
+anchor_mode = 0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1900.0
+offset_bottom = 1080.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -35.0
+offset_bottom = 35.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlaceBtn" type="Button" parent="Control/VBoxContainer/AspectRatioContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "Place"
+autowrap_mode = 2
+
+[node name="PlaceLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="RemoveBtn" type="Button" parent="Control/VBoxContainer/AspectRatioContainer2"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "Remove
+"
+autowrap_mode = 2
+
+[node name="RemoveLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer2"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="ReplaceBtn" type="Button" parent="Control/VBoxContainer/AspectRatioContainer3"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "Replace
+"
+autowrap_mode = 2
+
+[node name="ReplaceLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer3"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="BanBtn" type="Button" parent="Control/VBoxContainer/AspectRatioContainer4"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "Ban
+"
+autowrap_mode = 2
+
+[node name="BanLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer4"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+autowrap_mode = 2

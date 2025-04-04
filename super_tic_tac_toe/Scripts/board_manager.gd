@@ -22,11 +22,49 @@ func _ready() -> void:
 	_center_board()
 	_draw_tiles()
 
+# Convert a world position into a cell position
+func world_to_cell(position: Vector2) -> Vector2i:
+	var coords = tiles_tile_map.to_local(position)
+	coords = coords / Config.board_tiles_size
+	return coords
+
+# Places a player's pawn on an empty cell if possible
+# Returns if the pawn was placed, else false
 func place_pawn(coords: Vector2i, player_id: int) -> bool:
-	var placed = board.set_cell_at(coords, player_id)
-	if placed:
+	var placed = false
+	if board.get_cell_at(coords) == 0:
+		placed = board.set_cell_at(coords, player_id)
 		pawns_tile_map.set_cell(coords, 0, Vector2i(player_id - 1, 0))
 	return placed
+
+# Removes a player's pawn from a cell
+# Returns true if a pawn was removed, else false
+func remove_pawn(coords: Vector2i) -> bool:
+	var removed = false
+	if board.get_cell_at(coords) > 0:
+		removed = board.set_cell_at(coords, 0)
+		pawns_tile_map.set_cell(coords, 0)
+	return removed
+
+# Replace a player's pawn by another player's pawn
+# Returns true in success, else false
+func replace_pawn(coords: Vector2i, player_id: int) -> bool:
+	var replaced = false
+	if board.get_cell_at(coords) != player_id and board.get_cell_at(coords) > 0:
+		replaced = board.set_cell_at(coords, player_id)
+		if replaced:
+			pawns_tile_map.set_cell(coords, 0, Vector2i(player_id - 1, 0))
+	return replaced
+
+# Ban a cell from be able to have pawns on it
+# Returns true if the cell was banished, else false
+func ban_cell(coords: Vector2i) -> bool:
+	var banned = false
+	if board.get_cell_at(coords) == 0:
+		banned = board.set_cell_at(coords, -1)
+		if banned:
+			tiles_tile_map.set_cell(coords, 0, Vector2i(1, 1))
+	return banned
 
 # Draw only the tiles of the board (not the player's pawns)
 func _draw_tiles() -> void:
