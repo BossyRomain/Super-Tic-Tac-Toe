@@ -14,7 +14,8 @@ extends Node
 @export var replace_label: Label
 @export var ban_label: Label
 
-var player: HumanPlayer
+var players: Array[Player] = []
+var current_player: int = 0
 
 func _ready() -> void:
 	place_btn.pressed.connect(on_place_btn_pressed)
@@ -22,36 +23,55 @@ func _ready() -> void:
 	replace_btn.pressed.connect(on_replace_btn_pressed)
 	ban_btn.pressed.connect(on_ban_btn_pressed)
 	
+	# Init the players
 	var get_cell_coords_callable = Callable(board_manager, "world_to_cell")
-	
-	player = HumanPlayer.new()
-	player.get_cell_coords = get_cell_coords_callable
-	set_current_player_action(Player.PLACE_PAWN)
-	add_child(player)
+	for i in range(Config.nb_players):
+		var player = HumanPlayer.new()
+		player.get_cell_coords = get_cell_coords_callable
+		players.append(player)
+		add_child(player)
+	player_turn_begin()
+
+# Returns the current player playing
+func get_current_player() -> Player:
+	return players[current_player]
+
+# When a player turn begins
+func player_turn_begin() -> void:
+	var player = get_current_player()
 	player.action_choosed.connect(on_action_choosed)
 	update_actions_ui(player)
+	set_player_action(player, Player.PLACE_PAWN)
 	player.play()
+
+# When a player turn end
+func player_turn_end() -> void:
+	var player = get_current_player()
+	player.action_choosed.disconnect(on_action_choosed)
+	current_player = (current_player + 1) % Config.nb_players
+	player_turn_begin()
 
 # When the current player has choosed an action for his turn
 func on_action_choosed(coords: Vector2i, type: int) -> void:
 	var success = false
 	match type:
 		Player.PLACE_PAWN:
-			success = board_manager.place_pawn(coords, 1)
+			success = board_manager.place_pawn(coords, current_player + 1)
 		Player.REMOVE_PAWN:
 			success = board_manager.remove_pawn(coords)
 		Player.REPLACE_PAWN:
-			success = board_manager.replace_pawn(coords, 2)
+			success = board_manager.replace_pawn(coords, current_player + 1)
 		Player.BAN_CELL:
 			success = board_manager.ban_cell(coords)
+	var player = get_current_player()
 	if success:
 		player.set_action_uses_left(type, player.get_action_uses_left(type) - 1)
-		set_current_player_action(Player.PLACE_PAWN)
-	player.play()
-	update_actions_ui(player)
+		player_turn_end()
+	else:
+		player.play()
 
-# Update the current action the current player will use
-func set_current_player_action(type: int) -> void:
+# Update the current action a player will use
+func set_player_action(player: Player, type: int) -> void:
 	match type:
 		Player.PLACE_PAWN:
 			player.action = Player.PLACE_PAWN
@@ -81,13 +101,13 @@ func update_actions_ui(player: Player) -> void:
 
 # Listeners for the actions buttons pressed signal
 func on_place_btn_pressed() -> void:
-	player.action = Player.PLACE_PAWN
+	get_current_player().action = Player.PLACE_PAWN
 
 func on_remove_btn_pressed() -> void:
-	player.action = Player.REMOVE_PAWN
+	get_current_player().action = Player.REMOVE_PAWN
 
 func on_replace_btn_pressed() -> void:
-	player.action = Player.REPLACE_PAWN
+	get_current_player().action = Player.REPLACE_PAWN
 
 func on_ban_btn_pressed() -> void:
-	player.action = Player.BAN_CELL
+	get_current_player().action = Player.BAN_CELL
