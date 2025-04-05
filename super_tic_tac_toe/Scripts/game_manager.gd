@@ -48,8 +48,19 @@ func player_turn_begin() -> void:
 func player_turn_end() -> void:
 	var player = get_current_player()
 	player.action_choosed.disconnect(on_action_choosed)
-	current_player = (current_player + 1) % Config.nb_players
-	player_turn_begin()
+	if is_party_over():
+		var winner = board_manager.board.get_winner()
+		if winner > 0:
+			print("The winner is " + str(winner))
+		else:
+			print("It's a draw")
+	else:
+		current_player = (current_player + 1) % Config.nb_players
+		player_turn_begin()
+
+# Returns true if the party has ended, else false
+func is_party_over() -> bool:
+	return board_manager.board.is_full() or board_manager.board.get_winner() > 0
 
 # When the current player has choosed an action for his turn
 func on_action_choosed(coords: Vector2i, type: int) -> void:

@@ -56,6 +56,16 @@ public:
      */
     bool coords_in(Vector2i coords) const;
 
+    /**
+     * Returns the id of the winner if there is one, else returns 0.
+     */
+    int get_winner() const;
+
+    /**
+     * Returns true if the board is full, it means that there is no empty cell, else returns false.
+     */
+    bool is_full() const;
+
 protected:
 
     static void _bind_methods();

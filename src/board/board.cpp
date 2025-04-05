@@ -72,12 +72,64 @@ void Board::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_cell_at", "coords"), &Board::get_cell_at);
     ClassDB::bind_method(D_METHOD("set_cell_at", "coords", "value"), &Board::set_cell_at);
 
+    ClassDB::bind_method(D_METHOD("get_winner"), &Board::get_winner);
+    ClassDB::bind_method(D_METHOD("is_full"), &Board::is_full);
+
     ADD_PROPERTY(PropertyInfo(Variant::INT, "rows"), "set_rows", "get_rows");
     ADD_PROPERTY(PropertyInfo(Variant::INT, "cols"), "set_cols", "get_cols");
 }
 
 bool Board::coords_in(Vector2i coords) const {
     return coords.x >= 0 && coords.x < m_cols && coords.y >= 0 && coords.y < m_rows;
+}
+
+int Board::get_winner() const {
+    int winner = 0;
+    const int NB_TO_WIN = 4;
+
+    Vector2i dirs[5] = {
+        Vector2i(-1, 0), // Left
+        Vector2i(1, 0), // Right
+        Vector2i(0, 1), // Down
+        Vector2i(1, 1), // Down Right
+        Vector2i(-1, 1), // Down Left
+    };
+
+    for(int r = 0; r < m_rows && winner == 0; r++) {
+        for(int c = 0; c < m_cols && winner == 0; c++) {
+            Vector2i coords(c, r);
+            int player_id = get_cell_at(coords);
+
+            if(player_id <= 0) {
+                continue;
+            }
+
+            for(int d = 0; d < 5 && winner == 0; d++) {
+                int i = 1;
+                while(i < NB_TO_WIN && get_cell_at(coords + dirs[d] * i) == player_id) {
+                    i++;
+                }
+
+                if(i == NB_TO_WIN) {
+                    winner = player_id;
+                }
+            }
+        }
+    }
+
+    return winner;
+}
+
+bool Board::is_full() const {
+    bool full = true;
+
+    for(int r = 0; r < m_rows && full; r++) {
+        for(int c = 0; c < m_cols && full; c++) {
+            full = get_cell_at(Vector2i(c, r)) != 0;
+        }
+    }
+
+    return full;
 }
 
 void Board::resize(int rows, int cols) {
