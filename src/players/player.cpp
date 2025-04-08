@@ -14,11 +14,15 @@ Player::~Player() {
 
 }
 
+void Player::_ready() {
+
+}
+
 int Player::get_id() const {
     return m_id;
 }
 
-int Player::get_action_uses_left(Actions actionType) const {
+int Player::get_action_uses_left(int actionType) const {
     if(m_actionsUsesLeft.count(actionType) >= 0) {
         return m_actionsUsesLeft.at(actionType);
     }
@@ -29,19 +33,24 @@ void Player::set_id(int id) {
     m_id = id;
 }
 
-void Player::set_action_uses_left(Actions actionType, int left) {
+void Player::set_action_uses_left(int actionType, int left) {
     m_actionsUsesLeft[actionType] = left;
 }
 
-void Player::play() {
+void Player::play(Board *board) {
 
 }
 
 void Player::_bind_methods() {
-    ClassDB::add_virtual_method(get_class_static(), MethodInfo("play"));
+    ClassDB::add_virtual_method(get_class_static(), MethodInfo("play", PropertyInfo(Variant::OBJECT, "board")));
 
     ClassDB::bind_method(D_METHOD("get_action_uses_left", "actionType"), &Player::get_action_uses_left);
     ClassDB::bind_method(D_METHOD("set_action_uses_left", "actionType", "left"), &Player::set_action_uses_left);
+
+    ClassDB::bind_method(D_METHOD("get_id"), &Player::get_id);
+    ClassDB::bind_method(D_METHOD("set_id", "id"), &Player::set_id);
+
+    ADD_PROPERTY(PropertyInfo(Variant::INT, "id"), "set_id", "get_id");
 
     ADD_SIGNAL(MethodInfo("action_choosed", PropertyInfo(Variant::VECTOR2I, "coords"), PropertyInfo(Variant::INT, "type")));
 

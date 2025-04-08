@@ -3,14 +3,15 @@
 
 #include <godot_cpp/classes/node.hpp>
 #include <map>
+#include "board/board.h"
 
 namespace godot {
 
 /**
- * The base class for all the types of players.
+ * The base abstract class for all the types of players.
  */
 class Player: public Node {
-    GDCLASS(Player, Node)
+    GDCLASS(Player, Node);
 
 public:
 
@@ -25,30 +26,32 @@ public:
 
     ~Player();
 
+    void _ready();
+
     int get_id() const;
 
     /**
      * Returns the number of uses left for a type of action.
      */
-    int get_action_uses_left(Actions actionType) const;
+    int get_action_uses_left(int actionType) const;
 
     void set_id(int id);
 
     /**
      * Sets the number of uses left for a type of action.
      */
-    void set_action_uses_left(Actions actionType, int left);
+    void set_action_uses_left(int actionType, int left);
 
     /**
      * Method called when the player need to choose an action during his turn.
      * When the player has choosed, the signal action_choosed is emited.
      */
-    virtual void play();
+    virtual void play(Board *board);
 
 protected:
 
     static void _bind_methods();
-
+    
 private:
 
     int m_id;
@@ -56,7 +59,7 @@ private:
     /**
      * The number of uses left for a type of action.
      */
-    std::map<Actions, int> m_actionsUsesLeft;
+    std::map<int, int> m_actionsUsesLeft;
 };
 
 }

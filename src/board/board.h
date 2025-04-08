@@ -66,6 +66,8 @@ public:
      */
     bool is_full() const;
 
+    Board* clone() const;
+
 protected:
 
     static void _bind_methods();

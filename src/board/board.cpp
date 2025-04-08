@@ -132,6 +132,19 @@ bool Board::is_full() const {
     return full;
 }
 
+Board* Board::clone() const {
+    Board *copy = memnew(Board);
+
+    copy->resize(m_rows, m_cols);
+    for(int r = 0; r < m_rows; r++) {
+        for(int c = 0; c < m_cols; c++) {
+            copy->m_cells[r][c] = m_cells[r][c];
+        }
+    }
+
+    return copy;
+}
+
 void Board::resize(int rows, int cols) {
     if(rows == m_rows && cols == m_cols) {
         // if the dimensions are unchanged

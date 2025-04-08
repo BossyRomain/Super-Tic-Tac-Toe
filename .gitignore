@@ -18,6 +18,7 @@ mono_crash.*.json
 src/*.os
 src/board/*.os
 src/players/*.os
+src/players/ai_heuristics/*.os
 .sconsign.dblite
 lib_super_tic_tac_toe.*
 super_tic_tac_toe.gdextension.uid

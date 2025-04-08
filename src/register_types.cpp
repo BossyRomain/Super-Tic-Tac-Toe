@@ -6,6 +6,17 @@
 
 #include "board/board.h"
 #include "players/player.h"
+#include "players/human_player.h"
+#include "players/ai_player.h"
+#include "players/ai_heuristics/ai_heuristic.h"
+#include "players/ai_heuristics/random_heuristic.h"
+#include "players/ai_heuristics/win_heuristic.h"
+#include "players/ai_heuristics/max_pawns_heuristic.h"
+#include "players/ai_heuristics/block_pawns_heuristic.h"
+#include "players/ai_heuristics/no_specials_early_heuristic.h"
+#include "players/ai_heuristics/control_center_heuristic.h"
+#include "players/ai_heuristics/max_lines_heuristic.h"
+#include "players/ai_heuristics/block_lines_heuristic.h"
 
 using namespace godot;
 
@@ -15,7 +26,19 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	}
 
 	GDREGISTER_CLASS(Board);
-	GDREGISTER_CLASS(Player);
+	GDREGISTER_ABSTRACT_CLASS(Player);
+	GDREGISTER_CLASS(HumanPlayer);
+	GDREGISTER_CLASS(AIPlayer);
+	GDREGISTER_ABSTRACT_CLASS(AIHeuristic);
+	
+	GDREGISTER_CLASS(RandomHeuristic);
+	GDREGISTER_CLASS(WinHeuristic);
+	GDREGISTER_CLASS(MaxPawnsHeuristic);
+	GDREGISTER_CLASS(BlockPawnsHeuristic);
+	GDREGISTER_CLASS(NoSpecialsEarlyHeuristic);
+	GDREGISTER_CLASS(ControlCenterHeuristic);
+	GDREGISTER_CLASS(MaxLinesHeuristic);
+	GDREGISTER_CLASS(BlockLinesHeuristic);
 }
 
 void uninitialize_gdextension_module(ModuleInitializationLevel p_level) {
