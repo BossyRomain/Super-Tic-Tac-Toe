@@ -14,6 +14,9 @@ extends Node
 @export var replace_label: Label
 @export var ban_label: Label
 
+@export_category("Menus")
+@export var game_over_menu: Control
+
 var players: Array[Player] = []
 var current_player: int = 0
 
@@ -23,15 +26,17 @@ func _ready() -> void:
 	replace_btn.pressed.connect(on_replace_btn_pressed)
 	ban_btn.pressed.connect(on_ban_btn_pressed)
 	
+	game_over_menu.visible = false
+	
 	# Init the players
 	for i in range(Config.nb_players):
 		var player: Player = null
 		if i == 0:
-			player = AIPlayersFactory.create_legendary_player()
+			player = AIPlayersFactory.create_dumb_player()
 		elif i == 1:
 			player = create_human_player()
 		else:
-			player = AIPlayersFactory.create_legendary_player()
+			player = AIPlayersFactory.create_dumb_player()
 		
 		player.id = i + 1
 		players.append(player)
@@ -64,11 +69,12 @@ func player_turn_end() -> void:
 	var player = get_current_player()
 	player.action_choosed.disconnect(on_action_choosed)
 	if is_party_over():
+		game_over_menu.visible = true
 		var winner = board_manager.board.get_winner()
 		if winner > 0:
-			print("The winner is " + str(winner))
+			game_over_menu.show_winner("Player " + str(winner))
 		else:
-			print("It's a draw")
+			game_over_menu.show_draw()
 	else:
 		current_player = (current_player + 1) % Config.nb_players
 		player_turn_begin()
@@ -128,13 +134,21 @@ func update_actions_ui(player: Player) -> void:
 
 # Listeners for the actions buttons pressed signal
 func on_place_btn_pressed() -> void:
-	get_current_player().action = Player.PLACE_PAWN
+	var player = get_current_player()
+	if player is HumanPlayer:
+		player.action = Player.PLACE_PAWN
 
 func on_remove_btn_pressed() -> void:
-	get_current_player().action = Player.REMOVE_PAWN
+	var player = get_current_player()
+	if player is HumanPlayer:
+		player.action = Player.REMOVE_PAWN
 
 func on_replace_btn_pressed() -> void:
-	get_current_player().action = Player.REPLACE_PAWN
+	var player = get_current_player()
+	if player is HumanPlayer:
+		player.action = Player.REPLACE_PAWN
 
 func on_ban_btn_pressed() -> void:
-	get_current_player().action = Player.BAN_CELL
+	var player = get_current_player()
+	if player is HumanPlayer:
+		player.action = Player.BAN_CELL

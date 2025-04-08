@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://coplkew0qe0cm"]
+[gd_scene load_steps=9 format=3 uid="uid://coplkew0qe0cm"]
 
 [ext_resource type="Script" uid="uid://boe7xvbd7llel" path="res://Scripts/board_manager.gd" id="1_ebmjs"]
 [ext_resource type="Texture2D" uid="uid://b2qxis7xw5snl" path="res://Assets/tiles.png" id="2_qxrlw"]
 [ext_resource type="Script" uid="uid://btcodb2mi6na5" path="res://Scripts/game_manager.gd" id="3_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://dxu7x68evg3b0" path="res://Scenes/game_over_menu.tscn" id="4_3dryh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
 texture = ExtResource("2_qxrlw")
@@ -43,7 +44,7 @@ tile_set = SubResource("TileSet_ebmjs")
 [node name="PawnsLayer" type="TileMapLayer" parent="BoardManager"]
 tile_set = SubResource("TileSet_qxrlw")
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("board_manager", "place_btn", "remove_btn", "replace_btn", "ban_btn", "place_label", "remove_label", "replace_label", "ban_label")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("board_manager", "place_btn", "remove_btn", "replace_btn", "ban_btn", "place_label", "remove_label", "replace_label", "ban_label", "game_over_menu")]
 script = ExtResource("3_wrm1d")
 board_manager = NodePath("../BoardManager")
 place_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer/PlaceBtn")
@@ -54,6 +55,7 @@ place_label = NodePath("../Control/VBoxContainer/AspectRatioContainer/PlaceLabel
 remove_label = NodePath("../Control/VBoxContainer/AspectRatioContainer2/RemoveLabel")
 replace_label = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceLabel")
 ban_label = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanLabel")
+game_over_menu = NodePath("../GameOverMenu")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -144,3 +146,6 @@ layout_mode = 2
 text = "0"
 horizontal_alignment = 2
 autowrap_mode = 2
+
+[node name="GameOverMenu" parent="." instance=ExtResource("4_3dryh")]
+z_index = 10
