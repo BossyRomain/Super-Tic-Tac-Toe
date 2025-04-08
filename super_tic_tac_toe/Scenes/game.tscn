@@ -1,35 +1,31 @@
-[gd_scene load_steps=9 format=3 uid="uid://coplkew0qe0cm"]
+[gd_scene load_steps=10 format=3 uid="uid://coplkew0qe0cm"]
 
 [ext_resource type="Script" uid="uid://boe7xvbd7llel" path="res://Scripts/board_manager.gd" id="1_ebmjs"]
 [ext_resource type="Texture2D" uid="uid://b2qxis7xw5snl" path="res://Assets/tiles.png" id="2_qxrlw"]
+[ext_resource type="Texture2D" uid="uid://v4xweyp5b5xl" path="res://Assets/pawns.png" id="3_wowpa"]
 [ext_resource type="Script" uid="uid://btcodb2mi6na5" path="res://Scripts/game_manager.gd" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://dxu7x68evg3b0" path="res://Scenes/game_over_menu.tscn" id="4_3dryh"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3dryh"]
 texture = ExtResource("2_qxrlw")
 texture_region_size = Vector2i(300, 300)
 0:0/0 = 0
 1:0/0 = 0
-2:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_ebmjs"]
-tile_size = Vector2i(50, 50)
-sources/0 = SubResource("TileSetAtlasSource_wrm1d")
+tile_size = Vector2i(300, 300)
+sources/0 = SubResource("TileSetAtlasSource_3dryh")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qxrlw"]
-texture = ExtResource("2_qxrlw")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wowpa"]
+texture = ExtResource("3_wowpa")
 texture_region_size = Vector2i(300, 300)
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_qxrlw"]
+[sub_resource type="TileSet" id="TileSet_3dryh"]
 tile_size = Vector2i(300, 300)
-sources/0 = SubResource("TileSetAtlasSource_qxrlw")
+sources/0 = SubResource("TileSetAtlasSource_wowpa")
 
 [node name="Game" type="Node2D"]
 
@@ -42,7 +38,7 @@ pawns_tile_map = NodePath("PawnsLayer")
 tile_set = SubResource("TileSet_ebmjs")
 
 [node name="PawnsLayer" type="TileMapLayer" parent="BoardManager"]
-tile_set = SubResource("TileSet_qxrlw")
+tile_set = SubResource("TileSet_3dryh")
 
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("board_manager", "place_btn", "remove_btn", "replace_btn", "ban_btn", "place_label", "remove_label", "replace_label", "ban_label", "game_over_menu")]
 script = ExtResource("3_wrm1d")

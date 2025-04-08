@@ -63,14 +63,14 @@ func ban_cell(coords: Vector2i) -> bool:
 	if board.get_cell_at(coords) == 0:
 		banned = board.set_cell_at(coords, -1)
 		if banned:
-			tiles_tile_map.set_cell(coords, 0, Vector2i(1, 1))
+			tiles_tile_map.set_cell(coords, 0, Vector2i(1, 0))
 	return banned
 
 # Draw only the tiles of the board (not the player's pawns)
 func _draw_tiles() -> void:
 	for r in range(board.rows):
 		for c in range(board.cols):
-			tiles_tile_map.set_cell(Vector2i(c, r), 0, Vector2i(0, 1), 0)
+			tiles_tile_map.set_cell(Vector2i(c, r), 0, Vector2i(0, 0), 0)
 
 # Scale the board to fit in the window
 func _scale_board() -> void:
