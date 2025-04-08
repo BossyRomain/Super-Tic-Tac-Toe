@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://bom2f0gcitr0k"]
+
+[ext_resource type="Script" uid="uid://cbqn8lrrhnbm1" path="res://Scripts/player_creation_menu.gd" id="1_jadog"]
+
+[node name="PlayerCreationMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jadog")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "Player name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter player's name here"
+max_length = 20
+clear_button_enabled = true
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 6
+popup/item_0/text = "Human"
+popup/item_0/id = 0
+popup/item_1/text = "DUMB"
+popup/item_1/id = 1
+popup/item_2/text = "EASY"
+popup/item_2/id = 2
+popup/item_3/text = "MEDIUM"
+popup/item_3/id = 3
+popup/item_4/text = "HARD"
+popup/item_4/id = 4
+popup/item_5/text = "LEGENDARY"
+popup/item_5/id = 5
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+stretch_mode = 3
+
+[node name="Remove" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Remove"
+
+[connection signal="text_changed" from="VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="item_selected" from="VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="VBoxContainer/Remove" to="." method="_on_remove_pressed"]

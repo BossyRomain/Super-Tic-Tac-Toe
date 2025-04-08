@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnp77t5hsqthy"]
+
+[ext_resource type="PackedScene" uid="uid://bom2f0gcitr0k" path="res://Scenes/player_creation_menu.tscn" id="1_1sy1w"]
+[ext_resource type="Script" uid="uid://btuwqce75vema" path="res://Scripts/game_creation_menu.gd" id="1_2c4es"]
+[ext_resource type="Texture2D" uid="uid://v4xweyp5b5xl" path="res://Assets/pawns.png" id="3_ap3rc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0df3i"]
+atlas = ExtResource("3_ap3rc")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qluuf"]
+atlas = ExtResource("3_ap3rc")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ap3rc"]
+atlas = ExtResource("3_ap3rc")
+region = Rect2(600, 0, 300, 300)
+
+[node name="GameCreationMenu" type="Control" node_paths=PackedStringArray("players_creation_menus")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2c4es")
+players_creation_menus = [NodePath("VBoxContainer/GridContainer/PlayerCreationMenu"), NodePath("VBoxContainer/GridContainer/PlayerCreationMenu2"), NodePath("VBoxContainer/GridContainer/PlayerCreationMenu3")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="PlayerCreationMenu" parent="VBoxContainer/GridContainer" instance=ExtResource("1_1sy1w")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+pawn_texture = SubResource("AtlasTexture_0df3i")
+
+[node name="PlayerCreationMenu2" parent="VBoxContainer/GridContainer" instance=ExtResource("1_1sy1w")]
+layout_mode = 2
+size_flags_horizontal = 3
+pawn_texture = SubResource("AtlasTexture_qluuf")
+
+[node name="PlayerCreationMenu3" parent="VBoxContainer/GridContainer" instance=ExtResource("1_1sy1w")]
+layout_mode = 2
+size_flags_horizontal = 3
+optional = true
+pawn_texture = SubResource("AtlasTexture_ap3rc")
+
+[node name="GridContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 1
+
+[node name="AddPlayer" type="Button" parent="VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "Add Player"
+
+[node name="StartGame" type="Button" parent="VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Start Game"
+
+[node name="Back" type="Button" parent="VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="hidden" from="VBoxContainer/GridContainer/PlayerCreationMenu3" to="." method="_on_player_creation_menu_3_hidden"]
+[connection signal="pressed" from="VBoxContainer/GridContainer2/AddPlayer" to="." method="_on_add_player_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer2/StartGame" to="." method="_on_start_game_pressed"]

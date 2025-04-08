@@ -31,12 +31,19 @@ func _ready() -> void:
 	# Init the players
 	for i in range(Config.nb_players):
 		var player: Player = null
-		if i == 0:
-			player = AIPlayersFactory.create_dumb_player()
-		elif i == 1:
-			player = create_human_player()
-		else:
-			player = AIPlayersFactory.create_dumb_player()
+		match Config.players_types[i]:
+			-1:
+				player = create_human_player()
+			0:
+				player = AIPlayersFactory.create_dumb_player()
+			1:
+				player = AIPlayersFactory.create_easy_player()
+			2:
+				player = AIPlayersFactory.create_medium_player()
+			3:
+				player = AIPlayersFactory.create_hard_player()
+			4:
+				player = AIPlayersFactory.create_legendary_player()
 		
 		player.id = i + 1
 		players.append(player)
