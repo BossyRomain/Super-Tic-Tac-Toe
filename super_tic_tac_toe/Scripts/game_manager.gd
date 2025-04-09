@@ -16,6 +16,9 @@ extends Node
 
 @export_category("Menus")
 @export var game_over_menu: Control
+@export var players_infos_container: Control
+
+@export var current_player_label: Label
 
 var players: Array[Player] = []
 var current_player: int = 0
@@ -28,8 +31,20 @@ func _ready() -> void:
 	
 	game_over_menu.visible = false
 	
+	var player_infos_scene = load("res://Scenes/player_infos_menu.tscn")
+	var pawns_texture = null
+	
 	# Init the players
 	for i in range(Config.nb_players):
+		var texture = AtlasTexture.new()
+		texture.atlas = load("res://Assets/pawns.png")
+		texture.region = Rect2(300 * i, 0, 300, 300)
+		var player_infos = player_infos_scene.instantiate()
+		player_infos.set_player_name(Config.players_names[i])
+		player_infos.set_player_type(Config.players_types[i])
+		player_infos.set_pawn_texture(texture)
+		players_infos_container.add_child(player_infos)
+		
 		var player: Player = null
 		match Config.players_types[i]:
 			-1:
@@ -68,6 +83,7 @@ func player_turn_begin() -> void:
 	player.action_choosed.connect(on_action_choosed)
 	update_actions_ui(player)
 	set_player_action(player, Player.PLACE_PAWN)
+	current_player_label.text = Config.players_names[current_player] + " turn"
 	await get_tree().create_timer(1.0).timeout
 	player.play(board_manager.board)
 

@@ -32,7 +32,7 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "New Game"
 
-[node name="Button2" type="Button" parent="VBoxContainer"]
+[node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Exit to main menu"
 

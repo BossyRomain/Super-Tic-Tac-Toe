@@ -40,7 +40,7 @@ tile_set = SubResource("TileSet_ebmjs")
 [node name="PawnsLayer" type="TileMapLayer" parent="BoardManager"]
 tile_set = SubResource("TileSet_3dryh")
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("board_manager", "place_btn", "remove_btn", "replace_btn", "ban_btn", "place_label", "remove_label", "replace_label", "ban_label", "game_over_menu")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("board_manager", "place_btn", "remove_btn", "replace_btn", "ban_btn", "place_label", "remove_label", "replace_label", "ban_label", "game_over_menu", "players_infos_container", "current_player_label")]
 script = ExtResource("3_wrm1d")
 board_manager = NodePath("../BoardManager")
 place_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer/PlaceBtn")
@@ -52,6 +52,8 @@ remove_label = NodePath("../Control/VBoxContainer/AspectRatioContainer2/RemoveLa
 replace_label = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceLabel")
 ban_label = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanLabel")
 game_over_menu = NodePath("../GameOverMenu")
+players_infos_container = NodePath("../Control2/PlayersInfosContainer")
+current_player_label = NodePath("../Control/CurrentPlayerLabel")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -143,5 +145,42 @@ text = "0"
 horizontal_alignment = 2
 autowrap_mode = 2
 
+[node name="CurrentPlayerLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -0.5
+offset_right = 0.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Player 1 turn"
+horizontal_alignment = 1
+
 [node name="GameOverMenu" parent="." instance=ExtResource("4_3dryh")]
-z_index = 10
+z_index = 100
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="PlayersInfosContainer" type="VBoxContainer" parent="Control2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
