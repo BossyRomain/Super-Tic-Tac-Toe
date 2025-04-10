@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Super Tic Tac Toe"
-run/main_scene="uid://bnp77t5hsqthy"
+run/main_scene="uid://vxpl03iig5se"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
