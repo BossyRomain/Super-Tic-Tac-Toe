@@ -9,7 +9,6 @@ extends Node
 @export var ban_btn: Button
 
 @export_category("Actions Labels")
-@export var place_label: Label
 @export var remove_label: Label
 @export var replace_label: Label
 @export var ban_label: Label
@@ -95,7 +94,7 @@ func player_turn_end() -> void:
 		game_over_menu.visible = true
 		var winner = board_manager.board.get_winner()
 		if winner > 0:
-			game_over_menu.show_winner("Player " + str(winner))
+			game_over_menu.show_winner(Config.players_names[winner - 1])
 		else:
 			game_over_menu.show_draw()
 	else:
@@ -128,29 +127,25 @@ func on_action_choosed(coords: Vector2i, type: int) -> void:
 
 # Update the current action a player will use
 func set_player_action(player: Player, type: int) -> void:
+	if player is HumanPlayer:
+		player.action = type
 	match type:
 		Player.PLACE_PAWN:
-			#player.action = Player.PLACE_PAWN
 			place_btn.grab_focus()
 		Player.REMOVE_PAWN:
-			#player.action = Player.REMOVE_PAWN
 			remove_btn.grab_focus()
 		Player.REPLACE_PAWN:
-			#player.action = Player.REPLACE_PAWN
 			replace_btn.grab_focus()
 		Player.BAN_CELL:
-			#player.action = Player.BAN_CELL
 			ban_btn.grab_focus()
 
 # Update the actions buttons and labels a player
 func update_actions_ui(player: Player) -> void:
 	# Update the buttons state
-	place_btn.disabled = player.get_action_uses_left(Player.PLACE_PAWN) == 0
-	remove_btn.disabled = player.get_action_uses_left(Player.REMOVE_PAWN) == 0
-	replace_btn.disabled = player.get_action_uses_left(Player.REPLACE_PAWN) == 0
-	ban_btn.disabled = player.get_action_uses_left(Player.BAN_CELL) == 0
+	remove_btn.disabled = player.get_action_uses_left(Player.REMOVE_PAWN) <= 0
+	replace_btn.disabled = player.get_action_uses_left(Player.REPLACE_PAWN) <= 0
+	ban_btn.disabled = player.get_action_uses_left(Player.BAN_CELL) <= 0
 	# Update the labels text
-	place_label.text = str(player.get_id())
 	remove_label.text = str(player.get_action_uses_left(Player.REMOVE_PAWN))
 	replace_label.text = str(player.get_action_uses_left(Player.REPLACE_PAWN))
 	ban_label.text = str(player.get_action_uses_left(Player.BAN_CELL))

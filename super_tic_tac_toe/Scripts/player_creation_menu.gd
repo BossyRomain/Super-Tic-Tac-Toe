@@ -18,7 +18,7 @@ var id: int = 0:
 
 func _ready() -> void:
 	if not optional:
-		remove.visible = false
+		remove.visibility_layer = 0
 		remove.disabled = true
 	else:
 		visible = false

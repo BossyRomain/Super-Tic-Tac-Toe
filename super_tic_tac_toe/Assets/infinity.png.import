@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uso0f61kt88p"
-path="res://.godot/imported/pawns.png-28e21122af5db2f8a85debdecfd06793.ctex"
+uid="uid://s3pysiutqsak"
+path="res://.godot/imported/infinity.png-e23e2f81a4848744dbce6b15e5b1865d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/pawns.png"
-dest_files=["res://.godot/imported/pawns.png-28e21122af5db2f8a85debdecfd06793.ctex"]
+source_file="res://Assets/infinity.png"
+dest_files=["res://.godot/imported/infinity.png-e23e2f81a4848744dbce6b15e5b1865d.ctex"]
 
 [params]
 

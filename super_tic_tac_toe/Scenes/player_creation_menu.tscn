@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bom2f0gcitr0k"]
+[gd_scene load_steps=3 format=3 uid="uid://bom2f0gcitr0k"]
 
 [ext_resource type="Script" uid="uid://cbqn8lrrhnbm1" path="res://Scripts/player_creation_menu.gd" id="1_jadog"]
+[ext_resource type="Theme" uid="uid://bncyjf4h4r7gw" path="res://Themes/main_theme.tres" id="2_jadog"]
 
 [node name="PlayerCreationMenu" type="Control"]
 layout_mode = 3
@@ -16,24 +17,36 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+theme = ExtResource("2_jadog")
+theme_override_font_sizes/font_size = 32
 text = "Player name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme = ExtResource("2_jadog")
 placeholder_text = "Enter player's name here"
 max_length = 20
 clear_button_enabled = true
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme = ExtResource("2_jadog")
+theme_override_font_sizes/font_size = 24
 selected = 0
 item_count = 6
 popup/item_0/text = "Human"
@@ -50,14 +63,18 @@ popup/item_5/text = "LEGENDARY"
 popup/item_5/id = 5
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 stretch_mode = 3
 
 [node name="Remove" type="Button" parent="VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+theme = ExtResource("2_jadog")
 text = "Remove"
 
 [connection signal="text_changed" from="VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]

@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://coplkew0qe0cm"]
+[gd_scene load_steps=12 format=3 uid="uid://coplkew0qe0cm"]
 
 [ext_resource type="Script" uid="uid://boe7xvbd7llel" path="res://Scripts/board_manager.gd" id="1_ebmjs"]
-[ext_resource type="Texture2D" uid="uid://b2qxis7xw5snl" path="res://Assets/tiles.png" id="2_qxrlw"]
-[ext_resource type="Texture2D" uid="uid://v4xweyp5b5xl" path="res://Assets/pawns.png" id="3_wowpa"]
+[ext_resource type="Texture2D" uid="uid://y8udc1w38uoa" path="res://Assets/tiles.png" id="2_qxrlw"]
+[ext_resource type="Texture2D" uid="uid://uso0f61kt88p" path="res://Assets/pawns.png" id="3_wowpa"]
 [ext_resource type="Script" uid="uid://btcodb2mi6na5" path="res://Scripts/game_manager.gd" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://dxu7x68evg3b0" path="res://Scenes/game_over_menu.tscn" id="4_3dryh"]
+[ext_resource type="Theme" uid="uid://bncyjf4h4r7gw" path="res://Themes/main_theme.tres" id="5_i6g32"]
+[ext_resource type="Texture2D" uid="uid://s3pysiutqsak" path="res://Assets/infinity.png" id="6_1l0tm"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3dryh"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1l0tm"]
 texture = ExtResource("2_qxrlw")
 texture_region_size = Vector2i(300, 300)
 0:0/0 = 0
@@ -14,9 +16,9 @@ texture_region_size = Vector2i(300, 300)
 
 [sub_resource type="TileSet" id="TileSet_ebmjs"]
 tile_size = Vector2i(300, 300)
-sources/0 = SubResource("TileSetAtlasSource_3dryh")
+sources/0 = SubResource("TileSetAtlasSource_1l0tm")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wowpa"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v158k"]
 texture = ExtResource("3_wowpa")
 texture_region_size = Vector2i(300, 300)
 0:0/0 = 0
@@ -25,7 +27,7 @@ texture_region_size = Vector2i(300, 300)
 
 [sub_resource type="TileSet" id="TileSet_3dryh"]
 tile_size = Vector2i(300, 300)
-sources/0 = SubResource("TileSetAtlasSource_wowpa")
+sources/0 = SubResource("TileSetAtlasSource_v158k")
 
 [node name="Game" type="Node2D"]
 
@@ -40,14 +42,13 @@ tile_set = SubResource("TileSet_ebmjs")
 [node name="PawnsLayer" type="TileMapLayer" parent="BoardManager"]
 tile_set = SubResource("TileSet_3dryh")
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("board_manager", "place_btn", "remove_btn", "replace_btn", "ban_btn", "place_label", "remove_label", "replace_label", "ban_label", "game_over_menu", "players_infos_container", "current_player_label")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("board_manager", "place_btn", "remove_btn", "replace_btn", "ban_btn", "remove_label", "replace_label", "ban_label", "game_over_menu", "players_infos_container", "current_player_label")]
 script = ExtResource("3_wrm1d")
 board_manager = NodePath("../BoardManager")
 place_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer/PlaceBtn")
 remove_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer2/RemoveBtn")
 replace_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceBtn")
 ban_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanBtn")
-place_label = NodePath("../Control/VBoxContainer/AspectRatioContainer/PlaceLabel")
 remove_label = NodePath("../Control/VBoxContainer/AspectRatioContainer2/RemoveLabel")
 replace_label = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceLabel")
 ban_label = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanLabel")
@@ -76,23 +77,35 @@ offset_top = -35.0
 offset_bottom = 35.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_constants/separation = 10
 alignment = 1
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/VBoxContainer"]
+[node name="AspectRatioContainer" type="Control" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 
 [node name="PlaceBtn" type="Button" parent="Control/VBoxContainer/AspectRatioContainer"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+offset_right = 150.0
+offset_bottom = 150.0
+tooltip_text = "Place a pawn on an empty cell"
+theme = ExtResource("5_i6g32")
+theme_override_font_sizes/font_size = 40
 text = "Place"
 autowrap_mode = 2
 
-[node name="PlaceLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-text = "0"
-horizontal_alignment = 2
-autowrap_mode = 2
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/AspectRatioContainer"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -35.0
+offset_top = 5.0
+offset_right = -3.0
+offset_bottom = 37.0
+grow_horizontal = 0
+texture = ExtResource("6_1l0tm")
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -100,6 +113,9 @@ layout_mode = 2
 [node name="RemoveBtn" type="Button" parent="Control/VBoxContainer/AspectRatioContainer2"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+tooltip_text = "Remove an opponent pawn"
+theme = ExtResource("5_i6g32")
+theme_override_font_sizes/font_size = 40
 text = "Remove
 "
 autowrap_mode = 2
@@ -107,6 +123,7 @@ autowrap_mode = 2
 [node name="RemoveLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer2"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+theme = ExtResource("5_i6g32")
 text = "0"
 horizontal_alignment = 2
 autowrap_mode = 2
@@ -117,6 +134,9 @@ layout_mode = 2
 [node name="ReplaceBtn" type="Button" parent="Control/VBoxContainer/AspectRatioContainer3"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+tooltip_text = "Replace an opponent pawn by one of your pawn"
+theme = ExtResource("5_i6g32")
+theme_override_font_sizes/font_size = 40
 text = "Replace
 "
 autowrap_mode = 2
@@ -124,6 +144,7 @@ autowrap_mode = 2
 [node name="ReplaceLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer3"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+theme = ExtResource("5_i6g32")
 text = "0"
 horizontal_alignment = 2
 autowrap_mode = 2
@@ -134,6 +155,9 @@ layout_mode = 2
 [node name="BanBtn" type="Button" parent="Control/VBoxContainer/AspectRatioContainer4"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+tooltip_text = "Ban a cell, meaning no player can place a pawn on it anymore"
+theme = ExtResource("5_i6g32")
+theme_override_font_sizes/font_size = 40
 text = "Ban
 "
 autowrap_mode = 2
@@ -141,22 +165,28 @@ autowrap_mode = 2
 [node name="BanLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer4"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+theme = ExtResource("5_i6g32")
 text = "0"
 horizontal_alignment = 2
 autowrap_mode = 2
 
 [node name="CurrentPlayerLabel" type="Label" parent="Control"]
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -0.5
-offset_right = 0.5
-offset_bottom = 23.0
+offset_left = -79.0
+offset_top = 20.0
+offset_right = 79.0
+offset_bottom = 63.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 32
+theme = ExtResource("5_i6g32")
+theme_override_font_sizes/font_size = 64
 text = "Player 1 turn"
 horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="GameOverMenu" parent="." instance=ExtResource("4_3dryh")]
 z_index = 100

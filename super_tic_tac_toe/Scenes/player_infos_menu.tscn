@@ -1,44 +1,100 @@
-[gd_scene load_steps=2 format=3 uid="uid://40e3ydmr4nhx"]
+[gd_scene load_steps=6 format=3 uid="uid://40e3ydmr4nhx"]
 
 [ext_resource type="Script" uid="uid://bai66dke8lcjs" path="res://Scripts/player_infos_menu.gd" id="1_1rf01"]
+[ext_resource type="Theme" uid="uid://bncyjf4h4r7gw" path="res://Themes/main_theme.tres" id="2_xn5sc"]
+[ext_resource type="Texture2D" uid="uid://y8udc1w38uoa" path="res://Assets/tiles.png" id="3_r30a2"]
+[ext_resource type="Texture2D" uid="uid://cp4ifnioemrcw" path="res://Assets/background.png" id="3_xn5sc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41vko"]
+atlas = ExtResource("3_r30a2")
+region = Rect2(0, 0, 300, 300)
 
 [node name="PlayerInfosMenu" type="Control" node_paths=PackedStringArray("name_label", "type_label", "pawn_texture_rect")]
-custom_minimum_size = Vector2(0, 120)
+custom_minimum_size = Vector2(400, 200)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 200.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource("1_1rf01")
 name_label = NodePath("VBoxContainer/NameLabel")
-type_label = NodePath("VBoxContainer/HBoxContainer/TypeLabel")
-pawn_texture_rect = NodePath("VBoxContainer/HBoxContainer/PawnTexture")
+type_label = NodePath("VBoxContainer/TypeLabel")
+pawn_texture_rect = NodePath("PawnTexture")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 15.0
+offset_right = -10.0
+offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="NameLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme = ExtResource("2_xn5sc")
+theme_override_font_sizes/font_size = 40
 text = "Player X"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="TypeLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="TypeLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("2_xn5sc")
+theme_override_font_sizes/font_size = 20
 text = "Human"
 
-[node name="PawnTexture" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(70, 70)
-layout_mode = 2
+[node name="PawnTexture" type="TextureRect" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -80.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
 size_flags_horizontal = 2
 expand_mode = 5
 stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -110.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 2
+texture = SubResource("AtlasTexture_41vko")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("3_xn5sc")

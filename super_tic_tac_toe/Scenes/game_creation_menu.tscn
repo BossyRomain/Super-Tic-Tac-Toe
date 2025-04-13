@@ -1,19 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnp77t5hsqthy"]
+[gd_scene load_steps=9 format=3 uid="uid://bnp77t5hsqthy"]
 
 [ext_resource type="PackedScene" uid="uid://bom2f0gcitr0k" path="res://Scenes/player_creation_menu.tscn" id="1_1sy1w"]
 [ext_resource type="Script" uid="uid://btuwqce75vema" path="res://Scripts/game_creation_menu.gd" id="1_2c4es"]
-[ext_resource type="Texture2D" uid="uid://v4xweyp5b5xl" path="res://Assets/pawns.png" id="3_ap3rc"]
+[ext_resource type="Theme" uid="uid://bncyjf4h4r7gw" path="res://Themes/main_theme.tres" id="4_0df3i"]
+[ext_resource type="StyleBox" uid="uid://ctcnkm1x30s77" path="res://Styles/button_normal_style.tres" id="5_qluuf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0df3i"]
+load_path = "res://.godot/imported/pawns.png-28e21122af5db2f8a85debdecfd06793.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0df3i"]
-atlas = ExtResource("3_ap3rc")
+atlas = SubResource("CompressedTexture2D_0df3i")
 region = Rect2(0, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qluuf"]
-atlas = ExtResource("3_ap3rc")
+atlas = SubResource("CompressedTexture2D_0df3i")
 region = Rect2(300, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ap3rc"]
-atlas = ExtResource("3_ap3rc")
+atlas = SubResource("CompressedTexture2D_0df3i")
 region = Rect2(600, 0, 300, 300)
 
 [node name="GameCreationMenu" type="Control" node_paths=PackedStringArray("players_creation_menus")]
@@ -31,6 +35,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -59,19 +67,32 @@ pawn_texture = SubResource("AtlasTexture_ap3rc")
 [node name="GridContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
+theme_override_constants/separation = 32
 alignment = 1
 
 [node name="AddPlayer" type="Button" parent="VBoxContainer/GridContainer2"]
+custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
+theme = ExtResource("4_0df3i")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/focus = ExtResource("5_qluuf")
 text = "Add Player"
 
 [node name="StartGame" type="Button" parent="VBoxContainer/GridContainer2"]
+custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("4_0df3i")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/focus = ExtResource("5_qluuf")
 text = "Start Game"
 
 [node name="Back" type="Button" parent="VBoxContainer/GridContainer2"]
+custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
+theme = ExtResource("4_0df3i")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/focus = ExtResource("5_qluuf")
 text = "Back"
 
 [connection signal="hidden" from="VBoxContainer/GridContainer/PlayerCreationMenu3" to="." method="_on_player_creation_menu_3_hidden"]

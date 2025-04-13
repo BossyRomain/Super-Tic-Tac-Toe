@@ -1,0 +1,36 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bncyjf4h4r7gw"]
+
+[ext_resource type="StyleBox" uid="uid://ctcnkm1x30s77" path="res://Styles/button_normal_style.tres" id="1_8cjo3"]
+[ext_resource type="FontFile" uid="uid://kjrdmk3xbm3e" path="res://Assets/Rushfordclean-rgz89.otf" id="1_o2ta1"]
+[ext_resource type="StyleBox" uid="uid://bb3lmc5fa0oul" path="res://Styles/button_hover_style.tres" id="1_ybks7"]
+[ext_resource type="StyleBox" uid="uid://difergid7ceye" path="res://Styles/line_edit_normal_style.tres" id="4_jg5j1"]
+[ext_resource type="StyleBox" uid="uid://cuxjkgieu3n6f" path="res://Styles/popupmenu_hover_style.tres" id="5_2f3ak"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jg5j1"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+
+[resource]
+Button/fonts/font = ExtResource("1_o2ta1")
+Button/styles/focus = ExtResource("1_ybks7")
+Button/styles/hover = ExtResource("1_ybks7")
+Button/styles/normal = ExtResource("1_8cjo3")
+Button/styles/pressed = ExtResource("1_ybks7")
+Label/fonts/font = ExtResource("1_o2ta1")
+Label/styles/normal = SubResource("StyleBoxEmpty_jg5j1")
+LineEdit/font_sizes/font_size = 24
+LineEdit/fonts/font = ExtResource("1_o2ta1")
+LineEdit/styles/normal = ExtResource("4_jg5j1")
+OptionButton/font_sizes/font_size = 24
+OptionButton/fonts/font = ExtResource("1_o2ta1")
+OptionButton/styles/focus = ExtResource("1_8cjo3")
+OptionButton/styles/hover = ExtResource("1_8cjo3")
+OptionButton/styles/normal = ExtResource("1_8cjo3")
+OptionButton/styles/pressed = ExtResource("1_8cjo3")
+PopupMenu/colors/font_hover_color = Color(1, 1, 1, 1)
+PopupMenu/font_sizes/font_size = 24
+PopupMenu/fonts/font = ExtResource("1_o2ta1")
+PopupMenu/styles/hover = ExtResource("5_2f3ak")
+PopupMenu/styles/panel = ExtResource("1_8cjo3")
