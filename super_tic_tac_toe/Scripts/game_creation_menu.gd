@@ -46,3 +46,7 @@ func _on_start_game_pressed() -> void:
 		Config.players_names.append(players_names[i])
 		Config.players_types.append(players_types[i])
 	get_tree().change_scene_to_file("res://Scenes/game.tscn")
+
+
+func _on_back_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")

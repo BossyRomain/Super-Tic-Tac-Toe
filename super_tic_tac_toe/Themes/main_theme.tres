@@ -13,6 +13,7 @@ content_margin_right = 8.0
 content_margin_bottom = 4.0
 
 [resource]
+BoxContainer/constants/separation = 8
 Button/fonts/font = ExtResource("1_o2ta1")
 Button/styles/focus = ExtResource("1_ybks7")
 Button/styles/hover = ExtResource("1_ybks7")

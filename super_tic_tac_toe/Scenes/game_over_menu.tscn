@@ -16,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_arass")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+z_index = 1
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
 anchors_preset = 8
@@ -42,15 +43,16 @@ horizontal_alignment = 1
 [node name="NewGame" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_i22rp")
+theme_override_font_sizes/font_size = 24
 text = "New Game"
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_i22rp")
+theme_override_font_sizes/font_size = 24
 text = "Exit to main menu"
 
 [node name="TextureRect" type="TextureRect" parent="."]
-z_index = -1
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
 anchors_preset = 8

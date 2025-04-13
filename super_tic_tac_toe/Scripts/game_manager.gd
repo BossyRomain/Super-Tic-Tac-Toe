@@ -16,6 +16,7 @@ extends Node
 @export_category("Menus")
 @export var game_over_menu: Control
 @export var players_infos_container: Control
+@export var pause_menu: Control
 
 @export var current_player_label: Label
 
@@ -29,6 +30,7 @@ func _ready() -> void:
 	ban_btn.pressed.connect(on_ban_btn_pressed)
 	
 	game_over_menu.visible = false
+	pause_menu.visible = false
 	
 	var player_infos_scene = load("res://Scenes/player_infos_menu.tscn")
 	var pawns_texture = null
@@ -64,6 +66,13 @@ func _ready() -> void:
 		add_child(player)
 		
 	player_turn_begin()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause_game"):
+		pause_menu.visible = not pause_menu.visible
+		if not pause_menu.visible:
+			# Unpause the game
+			player_turn_begin()
 
 # Creates a human player
 func create_human_player() -> HumanPlayer:
@@ -107,6 +116,8 @@ func is_party_over() -> bool:
 
 # When the current player has choosed an action for his turn
 func on_action_choosed(coords: Vector2i, type: int) -> void:
+	if pause_menu.visible:
+		return
 	var success = false
 	var player_id = get_current_player().id
 	match type:
@@ -170,3 +181,8 @@ func on_ban_btn_pressed() -> void:
 	var player = get_current_player()
 	if player is HumanPlayer:
 		player.action = Player.BAN_CELL
+
+
+func _on_pause_menu_unpause() -> void:
+	pause_menu.visible = false
+	player_turn_begin()
