@@ -13,13 +13,20 @@ env = SConscript("godot-cpp/SConstruct")
 # - LINKFLAGS are for linking flags
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
-env.Append(CPPPATH=["src/", "src/board/", "src/players/", "src/players/ai_heuristics"])
+env.Append(
+    CPPPATH=[
+        "src/",
+        "src/board/",
+        "src/players/",
+        "src/heuristics",
+    ]
+)
 sources = []
 for dir in [
     "src/*.cpp",
     "src/board/*.cpp",
     "src/players/*.cpp",
-    "src/players/ai_heuristics/*.cpp",
+    "src/heuristics/*.cpp",
 ]:
     sources.extend(Glob(dir))
 

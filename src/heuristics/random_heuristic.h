@@ -1,15 +1,15 @@
 #ifndef RANDOM_HEURISTIC_H
 #define RANDOM_HEURISTIC_H
 
-#include "players/ai_heuristics/ai_heuristic.h"
+#include "heuristics/heuristic.h"
 
 namespace godot {
 
 /**
  * Give a random score to eaech action, regardless of the board's state.
  */
-class RandomHeuristic: public AIHeuristic {
-    GDCLASS(RandomHeuristic, AIHeuristic)
+class RandomHeuristic: public Heuristic {
+    GDCLASS(RandomHeuristic, Heuristic)
 
 public:
 
@@ -17,7 +17,7 @@ public:
 
     ~RandomHeuristic();
 
-    double calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, int action_type) override;
+    double calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, ActionType action_type) override;
 
 protected:
 

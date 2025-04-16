@@ -8,15 +8,15 @@
 #include "players/player.h"
 #include "players/human_player.h"
 #include "players/ai_player.h"
-#include "players/ai_heuristics/ai_heuristic.h"
-#include "players/ai_heuristics/random_heuristic.h"
-#include "players/ai_heuristics/win_heuristic.h"
-#include "players/ai_heuristics/max_pawns_heuristic.h"
-#include "players/ai_heuristics/block_pawns_heuristic.h"
-#include "players/ai_heuristics/no_specials_early_heuristic.h"
-#include "players/ai_heuristics/control_center_heuristic.h"
-#include "players/ai_heuristics/max_lines_heuristic.h"
-#include "players/ai_heuristics/block_lines_heuristic.h"
+#include "heuristics/heuristic.h"
+#include "heuristics/random_heuristic.h"
+#include "heuristics/win_heuristic.h"
+#include "heuristics/max_pawns_heuristic.h"
+#include "heuristics/block_pawns_heuristic.h"
+#include "heuristics/no_specials_early_heuristic.h"
+#include "heuristics/control_center_heuristic.h"
+#include "heuristics/max_lines_heuristic.h"
+#include "heuristics/block_lines_heuristic.h"
 
 using namespace godot;
 
@@ -26,10 +26,11 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	}
 
 	GDREGISTER_CLASS(Board);
+	GDREGISTER_CLASS(Action);
 	GDREGISTER_ABSTRACT_CLASS(Player);
 	GDREGISTER_CLASS(HumanPlayer);
 	GDREGISTER_CLASS(AIPlayer);
-	GDREGISTER_ABSTRACT_CLASS(AIHeuristic);
+	GDREGISTER_ABSTRACT_CLASS(Heuristic);
 	
 	GDREGISTER_CLASS(RandomHeuristic);
 	GDREGISTER_CLASS(WinHeuristic);

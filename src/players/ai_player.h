@@ -2,12 +2,12 @@
 #define AI_PLAYER_H
 
 #include "players/player.h"
-#include "players/ai_heuristics/ai_heuristic.h"
+#include "heuristics/heuristic.h"
 #include <vector>
 
 namespace godot {
 
-class AIHeuristic;
+class Heuristic;
 
 /**
  * Represents an AI player. Use at least one child node of types AIHeuristic to change the behaviour of it.
@@ -31,7 +31,7 @@ public:
 
     void _ready();
 
-    void play(Board *board) override;
+    void choose_action(Board *board) override;
 
 protected:
 
@@ -42,9 +42,11 @@ private:
     /**
      * Gets the list of actions possibles for a board state.
      */
-    std::vector<Vector3i> get_actions(Board *board) const;
+    std::vector<Action*> get_actions(Board *board) const;
+
+    double min_max(Board *board, int depth, bool maximizing);
     
-    std::vector<AIHeuristic*> m_heuristics;
+    std::vector<Heuristic*> m_heuristics;
 };
 
 }

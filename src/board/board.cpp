@@ -57,6 +57,7 @@ void Board::set_cols(int cols) {
 bool Board::set_cell_at(Vector2i coords, int value) {
     if(coords_in(coords)) {
         m_cells[coords.y][coords.x] = value;
+        emit_signal("cell_updated", coords, value);
         return true;
     }
     return false;
@@ -77,6 +78,11 @@ void Board::_bind_methods() {
 
     ADD_PROPERTY(PropertyInfo(Variant::INT, "rows"), "set_rows", "get_rows");
     ADD_PROPERTY(PropertyInfo(Variant::INT, "cols"), "set_cols", "get_cols");
+
+    ADD_SIGNAL(MethodInfo("cell_updated", PropertyInfo(Variant::VECTOR2I, "coords"), PropertyInfo(Variant::INT, "new_value")));
+
+    ClassDB::bind_integer_constant(get_class_static(), "", "EMPTY_CELL", EMPTY_CELL);
+    ClassDB::bind_integer_constant(get_class_static(), "", "BANNED_CELL", BANNED_CELL);
 }
 
 bool Board::coords_in(Vector2i coords) const {
@@ -85,7 +91,6 @@ bool Board::coords_in(Vector2i coords) const {
 
 int Board::get_winner() const {
     int winner = 0;
-    const int NB_TO_WIN = 4;
 
     Vector2i dirs[5] = {
         Vector2i(-1, 0), // Left

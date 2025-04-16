@@ -1,4 +1,4 @@
-#include "players/ai_heuristics/block_pawns_heuristic.h"
+#include "heuristics/block_pawns_heuristic.h"
 
 using namespace godot;
 
@@ -10,7 +10,7 @@ BlockPawnsHeuristic::~BlockPawnsHeuristic() {
 
 }
 
-double BlockPawnsHeuristic::calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, int action_type) {
+double BlockPawnsHeuristic::calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, ActionType action_type) {
     const Vector2i dirs[] = {
         Vector2i(1, 0),
         Vector2i(-1, 0),

@@ -5,8 +5,13 @@
 
 namespace godot {
 
+#define NB_TO_WIN 4
+
 #define DEFAULT_ROWS 3
 #define DEFAULT_COLS 3
+
+#define EMPTY_CELL 0
+#define BANNED_CELL -1
 
 /**
  * Represents a state of the board.

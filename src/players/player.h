@@ -1,11 +1,21 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <godot_cpp/core/object.hpp>
 #include <godot_cpp/classes/node.hpp>
 #include <map>
 #include "board/board.h"
 
 namespace godot {
+
+enum ActionType {
+    PLACE_PAWN = 0,
+    REMOVE_PAWN,
+    REPLACE_PAWN,
+    BAN_CELL
+};
+
+class Action;
 
 /**
  * The base abstract class for all the types of players.
@@ -14,13 +24,6 @@ class Player: public Node {
     GDCLASS(Player, Node);
 
 public:
-
-    enum Actions {
-        PLACE_PAWN = 0,
-        REMOVE_PAWN = 1,
-        REPLACE_PAWN = 2,
-        BAN_CELL = 3,
-    };
 
     Player();
 
@@ -33,20 +36,25 @@ public:
     /**
      * Returns the number of uses left for a type of action.
      */
-    int get_action_uses_left(int actionType) const;
+    int get_action_uses_left(ActionType action_type) const;
 
     void set_id(int id);
 
     /**
-     * Sets the number of uses left for a type of action.
+     * Returns true if the player can still use a type of action, else false.
      */
-    void set_action_uses_left(int actionType, int left);
+    bool can_use_action(ActionType action_type) const;
+
+    /**
+     * Decrement the number of uses left for a type of action by one.
+     */
+    void decrement_uses_action(ActionType action_type);
 
     /**
      * Method called when the player need to choose an action during his turn.
      * When the player has choosed, the signal action_choosed is emited.
      */
-    virtual void play(Board *board);
+    virtual void choose_action(Board *board);
 
 protected:
 
@@ -59,11 +67,50 @@ private:
     /**
      * The number of uses left for a type of action.
      */
-    std::map<int, int> m_actionsUsesLeft;
+    std::map<ActionType, int> m_actionsUsesLeft;
+};
+
+class Action: public Object {
+    GDCLASS(Action, Object);
+
+public:
+
+    Action();
+
+    ~Action();
+
+    ActionType get_type() const;
+
+    Vector2i get_coords() const;
+
+    Player* get_player() const;
+
+    void set_type(ActionType type);
+
+    void set_coords(Vector2i coords);
+
+    void set_player(Player *player);
+
+    /**
+     * Play the action, returns true if the action succeed, else returns false.
+     */
+    bool execute(Board *board);
+
+protected:
+
+    static void _bind_methods();
+
+private:
+
+    ActionType m_type;
+
+    Vector2i m_coords;
+
+    Player *m_player;
 };
 
 }
 
-VARIANT_ENUM_CAST(Player::Actions);
+VARIANT_ENUM_CAST(ActionType);
 
 #endif

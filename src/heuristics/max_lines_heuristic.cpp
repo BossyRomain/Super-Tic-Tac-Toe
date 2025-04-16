@@ -1,4 +1,4 @@
-#include "players/ai_heuristics/max_lines_heuristic.h"
+#include "heuristics/max_lines_heuristic.h"
 
 using namespace godot;
 
@@ -10,8 +10,8 @@ MaxLinesHeuristic::~MaxLinesHeuristic() {
 
 }
 
-double MaxLinesHeuristic::calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, int action_type) {
-    if(action_type == Player::Actions::REMOVE_PAWN || action_type == Player::Actions::BAN_CELL) {
+double MaxLinesHeuristic::calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, ActionType action_type) {
+    if(action_type == ActionType::REMOVE_PAWN || action_type == ActionType::BAN_CELL) {
         return -1.0;
     }
 
@@ -25,7 +25,6 @@ double MaxLinesHeuristic::calculate_action_score(Board *board, AIPlayer *player,
         Vector2i(1, -1),
         Vector2i(-1, -1),
     };
-    const int NB_TO_WIN = 4;
 
     // Number of almost winning lines
     int nb_lines_almost = 0;

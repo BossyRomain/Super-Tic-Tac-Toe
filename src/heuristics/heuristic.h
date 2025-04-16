@@ -1,5 +1,5 @@
-#ifndef AI_HEURISTIC_H
-#define AI_HEURISTIC_H
+#ifndef HEURISTIC_H
+#define HEURISTIC_H
 
 #include <godot_cpp/classes/node.hpp>
 #include "players/ai_player.h"
@@ -12,14 +12,14 @@ class AIPlayer;
 /**
  * The base class of the heuristics used by AI players to change their behaviour.
  */
-class AIHeuristic: public Node {
-    GDCLASS(AIHeuristic, Node);
+class Heuristic: public Node {
+    GDCLASS(Heuristic, Node);
 
 public:
 
-    AIHeuristic();
+    Heuristic();
 
-    ~AIHeuristic();
+    ~Heuristic();
 
     double get_weight() const;
 
@@ -32,7 +32,7 @@ public:
      * Negative returned value means the action is disadvantagous for the player in the board state.
      * When 0 is returned it means the action is nor advantagous nor disadvantagous for the player in the board state.
      */
-    virtual double calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, int action_type);
+    virtual double calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, ActionType action_type);
 
 protected:
 

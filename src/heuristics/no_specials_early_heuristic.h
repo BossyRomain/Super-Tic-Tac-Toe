@@ -1,7 +1,7 @@
 #ifndef NO_SPECIALS_EARLY_HEURISTIC_H
 #define NO_SPECIALS_EARLY_HEURISTIC_H
 
-#include "players/ai_heuristics/ai_heuristic.h"
+#include "heuristics/heuristic.h"
 #include <vector>
 
 namespace godot {
@@ -9,8 +9,8 @@ namespace godot {
 /**
  * Avoid to use specials actions at the beginning of a game (3 first turns of the player).
  */
-class NoSpecialsEarlyHeuristic: public AIHeuristic {
-    GDCLASS(NoSpecialsEarlyHeuristic, AIHeuristic)
+class NoSpecialsEarlyHeuristic: public Heuristic {
+    GDCLASS(NoSpecialsEarlyHeuristic, Heuristic)
 
 public:
 
@@ -18,7 +18,7 @@ public:
 
     ~NoSpecialsEarlyHeuristic();
 
-    double calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, int action_type) override;
+    double calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, ActionType action_type) override;
 
 protected:
 

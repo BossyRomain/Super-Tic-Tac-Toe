@@ -20,15 +20,17 @@ public:
 
     void _input(Ref<InputEvent> event);
 
-    int get_action() const;
+    void _ready();
+
+    ActionType get_action_type() const;
 
     Callable get_cell_coords_callable() const;
 
-    void set_action(int action_type);
+    void set_action_type(ActionType action_type);
 
     void set_get_cell_coords_callable(Callable callable);
 
-    void play(Board *board) override;
+    void choose_action(Board *board) override;
 
 protected:
 
@@ -36,7 +38,7 @@ protected:
 
 private:
 
-    int m_action;
+    ActionType m_action_type;
 
     Callable m_get_cell_coords;
 };

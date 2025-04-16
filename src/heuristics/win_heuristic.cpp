@@ -1,4 +1,4 @@
-#include "players/ai_heuristics/win_heuristic.h"
+#include "heuristics/win_heuristic.h"
 
 using namespace godot;
 
@@ -10,8 +10,8 @@ WinHeuristic::~WinHeuristic() {
 
 }
 
-double WinHeuristic::calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, int action_type) {
-    if(action_type == Player::Actions::PLACE_PAWN || action_type == Player::Actions::REPLACE_PAWN) {
+double WinHeuristic::calculate_action_score(Board *board, AIPlayer *player, Vector2i coords, ActionType action_type) {
+    if(action_type == ActionType::PLACE_PAWN || action_type == ActionType::REPLACE_PAWN) {
         Board *copy = board->clone();
         copy->set_cell_at(coords, player->get_id());
         int winner = copy->get_winner();
