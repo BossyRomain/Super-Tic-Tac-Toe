@@ -15,7 +15,7 @@ func _ready() ->  void:
 		players_creation_menus[i].type_changed.connect(_on_type_changed)
 		
 		players_names.append("Player " + str(i + 1))
-		players_types.append(-1)
+		players_types.append(0)
 
 func _on_add_player_pressed() -> void:
 	players_creation_menus[2].visible = true
@@ -28,7 +28,7 @@ func _on_name_changed(id: int, new_name: String) -> void:
 		players_names[id - 1] = new_name
 
 func _on_type_changed(id: int, type: int) -> void:
-	players_types[id - 1] = type - 1
+	players_types[id - 1] = type
 
 func _on_player_creation_menu_3_hidden() -> void:
 	nb_players = 2

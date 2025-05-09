@@ -8,20 +8,19 @@ func set_player_name(name: String) -> void:
 	name_label.text = name
 
 func set_player_type(type: int) -> void:
-	if type < 0:
-		type_label.text = "Human"
-	else:
-		match type:
-			AIPlayer.DUMB:
-				type_label.text = "AI DUMB"
-			AIPlayer.EASY:
-				type_label.text = "AI EASY"
-			AIPlayer.MEDIUM:
-				type_label.text = "AI MEDIUM"
-			AIPlayer.HARD:
-				type_label.text = "AI HARD"
-			AIPlayer.LEGENDARY:
-				type_label.text = "AI LEGENDARY"
+	match type:
+		Player.HUMAN_PLAYER:
+			type_label.text = "Human"
+		Player.AI_DUMB:
+			type_label.text = "AI DUMB"
+		Player.AI_EASY:
+			type_label.text = "AI EASY"
+		Player.AI_MEDIUM:
+			type_label.text = "AI MEDIUM"
+		Player.AI_HARD:
+			type_label.text = "AI HARD"
+		Player.AI_LEGENDARY:
+			type_label.text = "AI LEGENDARY"
 
 func set_pawn_texture(texture: Texture2D) -> void:
 	pawn_texture_rect.texture = texture

@@ -3,11 +3,7 @@
 
 using namespace godot;
 
-Player::Player(): m_id(-1) {
-    m_actionsUsesLeft[PLACE_PAWN] = INT32_MAX;
-    m_actionsUsesLeft[REMOVE_PAWN] = 3;
-    m_actionsUsesLeft[REPLACE_PAWN] = 2;
-    m_actionsUsesLeft[BAN_CELL] = 2;
+Player::Player(): m_id(-1), m_type(-1) {
 }
 
 Player::~Player() {
@@ -22,40 +18,69 @@ int Player::get_id() const {
     return m_id;
 }
 
-int Player::get_action_uses_left(int actionType) const {
-    if(m_actionsUsesLeft.count(actionType) >= 0) {
-        return m_actionsUsesLeft.at(actionType);
+int Player::get_type() const {
+    return m_type;
+}
+
+int Player::get_action_uses_left(int action_type) const {
+    if(m_actionsUsesLeft.count(action_type) > 0) {
+        return m_actionsUsesLeft.at(action_type);
     }
-    return -1;
+    return 0;
 }
 
 void Player::set_id(int id) {
     m_id = id;
 }
 
-void Player::set_action_uses_left(int actionType, int left) {
-    m_actionsUsesLeft[actionType] = left;
+void Player::set_type(int type) {
+    m_type = type;
 }
 
-void Player::play(Board *board) {
+void Player::set_action_uses_left(int action_type, int left) {
+    m_actionsUsesLeft[action_type] = left;
+}
 
+bool Player::can_use_action(int action_type) const {
+    return get_action_uses_left(action_type) > 0;
+}
+
+void Player::decrement_action(int action_type) {
+    if(get_action_uses_left(action_type) > 0) {
+        m_actionsUsesLeft[action_type] = m_actionsUsesLeft.at(action_type) - 1;
+    }
+}
+
+Player* Player::duplicate() const {
+    Player *copy = memnew(Player);
+    
+    copy->m_id = m_id;
+    for(auto pair: m_actionsUsesLeft) {
+        copy->m_actionsUsesLeft[pair.first] = pair.second;
+    }
+
+    return copy;
 }
 
 void Player::_bind_methods() {
-    ClassDB::add_virtual_method(get_class_static(), MethodInfo("play", PropertyInfo(Variant::OBJECT, "board")));
-
-    ClassDB::bind_method(D_METHOD("get_action_uses_left", "actionType"), &Player::get_action_uses_left);
-    ClassDB::bind_method(D_METHOD("set_action_uses_left", "actionType", "left"), &Player::set_action_uses_left);
+    ClassDB::bind_method(D_METHOD("get_action_uses_left", "action_type"), &Player::get_action_uses_left);
+    ClassDB::bind_method(D_METHOD("set_action_uses_left", "action_type", "uses_left"), &Player::set_action_uses_left);
+    ClassDB::bind_method(D_METHOD("can_use_action", "action_type"), &Player::can_use_action);
+    ClassDB::bind_method(D_METHOD("decrement_action", "action_type"), &Player::decrement_action);
 
     ClassDB::bind_method(D_METHOD("get_id"), &Player::get_id);
     ClassDB::bind_method(D_METHOD("set_id", "id"), &Player::set_id);
 
+    ClassDB::bind_method(D_METHOD("get_type"), &Player::get_type);
+    ClassDB::bind_method(D_METHOD("set_type", "type"), &Player::set_type);
+
     ADD_PROPERTY(PropertyInfo(Variant::INT, "id"), "set_id", "get_id");
+    ADD_PROPERTY(PropertyInfo(Variant::INT, "type"), "set_type", "get_type");
 
-    ADD_SIGNAL(MethodInfo("action_choosed", PropertyInfo(Variant::VECTOR2I, "coords"), PropertyInfo(Variant::INT, "type")));
-
-    BIND_ENUM_CONSTANT(PLACE_PAWN);
-    BIND_ENUM_CONSTANT(REMOVE_PAWN);
-    BIND_ENUM_CONSTANT(REPLACE_PAWN);
-    BIND_ENUM_CONSTANT(BAN_CELL);
+    BIND_CONSTANT(HUMAN_PLAYER);
+    BIND_CONSTANT(AI_DUMB);
+    BIND_CONSTANT(AI_EASY);
+    BIND_CONSTANT(AI_MEDIUM);
+    BIND_CONSTANT(AI_HARD);
+    BIND_CONSTANT(AI_LEGENDARY);
 }

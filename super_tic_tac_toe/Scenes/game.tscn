@@ -34,19 +34,14 @@ sources/0 = SubResource("TileSetAtlasSource_v158k")
 
 [node name="BoardManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map", "pawns_tile_map")]
 script = ExtResource("1_ebmjs")
-tiles_tile_map = NodePath("TilesLayer")
-pawns_tile_map = NodePath("PawnsLayer")
+tiles_tile_map = NodePath("../GameManager/TilesLayer")
+pawns_tile_map = NodePath("../GameManager/PawnsLayer")
 
-[node name="TilesLayer" type="TileMapLayer" parent="BoardManager"]
-tile_set = SubResource("TileSet_ebmjs")
-
-[node name="PawnsLayer" type="TileMapLayer" parent="BoardManager"]
-tile_set = SubResource("TileSet_3dryh")
-
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("board_manager", "place_btn", "remove_btn", "replace_btn", "ban_btn", "remove_label", "replace_label", "ban_label", "game_over_menu", "players_infos_container", "pause_menu", "current_player_label")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map", "pawns_tile_map", "place_btn", "remove_btn", "replace_btn", "ban_btn", "remove_label", "replace_label", "ban_label", "game_over_menu", "players_infos_container", "pause_menu", "current_player_label")]
 process_mode = 1
 script = ExtResource("3_wrm1d")
-board_manager = NodePath("../BoardManager")
+tiles_tile_map = NodePath("TilesLayer")
+pawns_tile_map = NodePath("PawnsLayer")
 place_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer/PlaceBtn")
 remove_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer2/RemoveBtn")
 replace_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceBtn")
@@ -58,6 +53,12 @@ game_over_menu = NodePath("../Control/GameOverMenu")
 players_infos_container = NodePath("../Control/PlayersInfosContainer")
 pause_menu = NodePath("../Control/PauseMenu")
 current_player_label = NodePath("../Control/CurrentPlayerLabel")
+
+[node name="TilesLayer" type="TileMapLayer" parent="GameManager"]
+tile_set = SubResource("TileSet_ebmjs")
+
+[node name="PawnsLayer" type="TileMapLayer" parent="GameManager"]
+tile_set = SubResource("TileSet_3dryh")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0

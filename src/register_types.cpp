@@ -6,17 +6,14 @@
 
 #include "board/board.h"
 #include "players/player.h"
-#include "players/human_player.h"
-#include "players/ai_player.h"
-#include "players/ai_heuristics/ai_heuristic.h"
-#include "players/ai_heuristics/random_heuristic.h"
-#include "players/ai_heuristics/win_heuristic.h"
-#include "players/ai_heuristics/max_pawns_heuristic.h"
-#include "players/ai_heuristics/block_pawns_heuristic.h"
-#include "players/ai_heuristics/no_specials_early_heuristic.h"
-#include "players/ai_heuristics/control_center_heuristic.h"
-#include "players/ai_heuristics/max_lines_heuristic.h"
-#include "players/ai_heuristics/block_lines_heuristic.h"
+#include "actions/action.h"
+#include "actions/action_place_pawn.h"
+#include "actions/action_remove_pawn.h"
+#include "actions/action_replace_pawn.h"
+#include "actions/action_ban_cell.h"
+#include "game_state/game_state.h"
+#include "actions/actions_factory.h"
+#include "mcts/mcts.h"
 
 using namespace godot;
 
@@ -26,19 +23,15 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	}
 
 	GDREGISTER_CLASS(Board);
-	GDREGISTER_ABSTRACT_CLASS(Player);
-	GDREGISTER_CLASS(HumanPlayer);
-	GDREGISTER_CLASS(AIPlayer);
-	GDREGISTER_ABSTRACT_CLASS(AIHeuristic);
-	
-	GDREGISTER_CLASS(RandomHeuristic);
-	GDREGISTER_CLASS(WinHeuristic);
-	GDREGISTER_CLASS(MaxPawnsHeuristic);
-	GDREGISTER_CLASS(BlockPawnsHeuristic);
-	GDREGISTER_CLASS(NoSpecialsEarlyHeuristic);
-	GDREGISTER_CLASS(ControlCenterHeuristic);
-	GDREGISTER_CLASS(MaxLinesHeuristic);
-	GDREGISTER_CLASS(BlockLinesHeuristic);
+	GDREGISTER_CLASS(Player);
+	GDREGISTER_CLASS(GameState);
+	GDREGISTER_ABSTRACT_CLASS(Action);
+	GDREGISTER_CLASS(ActionPlacePawn);
+	GDREGISTER_CLASS(ActionRemovePawn);
+	GDREGISTER_CLASS(ActionReplacePawn);
+	GDREGISTER_CLASS(ActionBanCell);
+	GDREGISTER_CLASS(ActionsFactory);
+	GDREGISTER_CLASS(MCTS);
 }
 
 void uninitialize_gdextension_module(ModuleInitializationLevel p_level) {

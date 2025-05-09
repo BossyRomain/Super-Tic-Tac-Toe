@@ -57,6 +57,7 @@ void Board::set_cols(int cols) {
 bool Board::set_cell_at(Vector2i coords, int value) {
     if(coords_in(coords)) {
         m_cells[coords.y][coords.x] = value;
+        emit_signal("cell_updated", coords, value);
         return true;
     }
     return false;
@@ -77,6 +78,11 @@ void Board::_bind_methods() {
 
     ADD_PROPERTY(PropertyInfo(Variant::INT, "rows"), "set_rows", "get_rows");
     ADD_PROPERTY(PropertyInfo(Variant::INT, "cols"), "set_cols", "get_cols");
+
+    ADD_SIGNAL(MethodInfo("cell_updated", PropertyInfo(Variant::VECTOR2I, "coords"), PropertyInfo(Variant::INT, "value")));
+
+    BIND_CONSTANT(EMPTY_CELL);
+    BIND_CONSTANT(BANNED_CELL);
 }
 
 bool Board::coords_in(Vector2i coords) const {
@@ -132,7 +138,7 @@ bool Board::is_full() const {
     return full;
 }
 
-Board* Board::clone() const {
+Board* Board::duplicate() const {
     Board *copy = memnew(Board);
 
     copy->resize(m_rows, m_cols);
