@@ -3,7 +3,6 @@
 
 #include <godot_cpp/core/object.hpp>
 #include "actions/action_place_pawn.h"
-#include "actions/action_remove_pawn.h"
 #include "actions/action_replace_pawn.h"
 #include "actions/action_ban_cell.h"
 
@@ -19,8 +18,6 @@ public:
     ~ActionsFactory();
 
     static Action* create_place_pawn_action(Vector2i coords);
-
-    static Action* create_remove_pawn_action(Vector2i coords);
 
     static Action* create_replace_pawn_action(Vector2i coords);
 

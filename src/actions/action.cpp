@@ -15,7 +15,6 @@ void Action::_bind_methods() {
     ClassDB::bind_method(D_METHOD("execute", "game_state"), &Action::execute);
 
     BIND_CONSTANT(PLACE_PAWN);
-    BIND_CONSTANT(REMOVE_PAWN);
     BIND_CONSTANT(REPLACE_PAWN);
     BIND_CONSTANT(BAN_CELL);
 }

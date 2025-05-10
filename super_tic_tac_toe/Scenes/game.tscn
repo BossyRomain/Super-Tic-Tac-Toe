@@ -37,16 +37,14 @@ script = ExtResource("1_ebmjs")
 tiles_tile_map = NodePath("../GameManager/TilesLayer")
 pawns_tile_map = NodePath("../GameManager/PawnsLayer")
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map", "pawns_tile_map", "place_btn", "remove_btn", "replace_btn", "ban_btn", "remove_label", "replace_label", "ban_label", "game_over_menu", "players_infos_container", "pause_menu", "current_player_label")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map", "pawns_tile_map", "place_btn", "replace_btn", "ban_btn", "replace_label", "ban_label", "game_over_menu", "players_infos_container", "pause_menu", "current_player_label")]
 process_mode = 1
 script = ExtResource("3_wrm1d")
 tiles_tile_map = NodePath("TilesLayer")
 pawns_tile_map = NodePath("PawnsLayer")
 place_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer/PlaceBtn")
-remove_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer2/RemoveBtn")
 replace_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceBtn")
 ban_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanBtn")
-remove_label = NodePath("../Control/VBoxContainer/AspectRatioContainer2/RemoveLabel")
 replace_label = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceLabel")
 ban_label = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanLabel")
 game_over_menu = NodePath("../Control/GameOverMenu")
@@ -110,28 +108,6 @@ offset_right = -3.0
 offset_bottom = 37.0
 grow_horizontal = 0
 texture = ExtResource("6_1l0tm")
-
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="RemoveBtn" type="Button" parent="Control/VBoxContainer/AspectRatioContainer2"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-tooltip_text = "Remove an opponent pawn"
-theme = ExtResource("5_i6g32")
-theme_override_font_sizes/font_size = 40
-text = "Remove
-"
-autowrap_mode = 2
-
-[node name="RemoveLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer2"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-theme = ExtResource("5_i6g32")
-theme_override_font_sizes/font_size = 24
-text = "0"
-horizontal_alignment = 2
-autowrap_mode = 2
 
 [node name="AspectRatioContainer3" type="AspectRatioContainer" parent="Control/VBoxContainer"]
 layout_mode = 2

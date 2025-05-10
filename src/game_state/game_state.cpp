@@ -1,5 +1,6 @@
 #include "game_state/game_state.h"
 #include <godot_cpp/core/class_db.hpp>
+#include "actions/actions_factory.h"
 
 using namespace godot;
 
@@ -45,6 +46,30 @@ int GameState::winner() const {
     return m_board->get_winner();
 }
 
+std::vector<Action*> GameState::available_actions() {
+    std::vector<Action*> actions;
+
+    const Player *player = current_player();
+    for(int row = 0; row < m_board->get_rows(); row++) {
+        for(int col = 0; col < m_board->get_cols(); col++) {
+            Vector2i coords(col, row);
+            int cell = m_board->get_cell_at(coords);
+
+            if(player->can_use_action(PLACE_PAWN) && cell == EMPTY_CELL) {
+                actions.push_back(ActionsFactory::create_place_pawn_action(coords));
+            }
+            if(player->can_use_action(REPLACE_PAWN) && cell > EMPTY_CELL && cell != player->get_id()) {
+                actions.push_back(ActionsFactory::create_replace_pawn_action(coords));
+            }
+            if(player->can_use_action(BAN_CELL) && cell != BANNED_CELL) {
+                actions.push_back(ActionsFactory::create_ban_cell_action(coords));
+            }
+        }
+    }
+
+    return actions;
+}
+
 GameState* GameState::duplicate() const {
     GameState *copy = memnew(GameState);
 
@@ -66,6 +91,4 @@ void GameState::_bind_methods() {
     ClassDB::bind_method(D_METHOD("add_player", "player"), &GameState::add_player);
     ClassDB::bind_method(D_METHOD("is_over"), &GameState::is_over);
     ClassDB::bind_method(D_METHOD("winner"), &GameState::winner);
-
-    // ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "board"), "set_board", "get_board");
 }

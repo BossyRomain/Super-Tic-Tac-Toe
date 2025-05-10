@@ -5,9 +5,11 @@
 #include "players/player.h"
 #include <vector>
 #include "board/board.h"
+#include "actions/action.h"
 
 namespace godot {
 
+class Action;
 class Player;
 
 /**
@@ -56,6 +58,11 @@ public:
      * Returns the id of the winner, if there is no winner returns 0.
      */
     int winner() const;
+
+    /**
+     * Returns the list of all the available actions for this state.
+     */
+    std::vector<Action*> available_actions();
 
     GameState* duplicate() const;
 

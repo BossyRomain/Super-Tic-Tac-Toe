@@ -8,9 +8,8 @@
 namespace godot {
 
 #define PLACE_PAWN 0
-#define REMOVE_PAWN 1
-#define REPLACE_PAWN 2
-#define BAN_CELL 3
+#define REPLACE_PAWN 1
+#define BAN_CELL 2
 
 class GameState;
 

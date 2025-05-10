@@ -8,12 +8,10 @@ signal action_choosed(ction)
 
 @export_category("Actions Buttons")
 @export var place_btn: Button
-@export var remove_btn: Button
 @export var replace_btn: Button
 @export var ban_btn: Button
 
 @export_category("Actions Labels")
-@export var remove_label: Label
 @export var replace_label: Label
 @export var ban_label: Label
 
@@ -51,7 +49,6 @@ func _ready() -> void:
 	_init_players()
 	
 	place_btn.pressed.connect(_on_place_btn_pressed)
-	remove_btn.pressed.connect(_on_remove_btn_pressed)
 	replace_btn.pressed.connect(_on_replace_btn_pressed)
 	ban_btn.pressed.connect(_on_ban_btn_pressed)
 	
@@ -74,8 +71,6 @@ func _input(event: InputEvent) -> void:
 		match human_player_action_type:
 			Action.PLACE_PAWN:
 				action = ActionsFactory.create_place_pawn_action(coords)
-			Action.REMOVE_PAWN:
-				action = ActionsFactory.create_remove_pawn_action(coords)
 			Action.REPLACE_PAWN:
 				action = ActionsFactory.create_replace_pawn_action(coords)
 			Action.BAN_CELL:
@@ -100,7 +95,6 @@ func _init_players() -> void:
 		player.id = i + 1
 		player.type = Config.players_types[i]
 		player.set_action_uses_left(Action.PLACE_PAWN, 10000)
-		player.set_action_uses_left(Action.REMOVE_PAWN, 2)
 		player.set_action_uses_left(Action.REPLACE_PAWN, 2)
 		player.set_action_uses_left(Action.BAN_CELL, 2)
 		
@@ -146,8 +140,6 @@ func set_human_player_action(type: int) -> void:
 	match type:
 		Action.PLACE_PAWN:
 			place_btn.grab_focus()
-		Action.REMOVE_PAWN:
-			remove_btn.grab_focus()
 		Action.REPLACE_PAWN:
 			replace_btn.grab_focus()
 		Action.BAN_CELL:
@@ -156,20 +148,15 @@ func set_human_player_action(type: int) -> void:
 # Update the actions buttons and labels a player
 func update_actions_ui(player: Player) -> void:
 	# Update the buttons state
-	remove_btn.disabled = player.get_action_uses_left(Action.REMOVE_PAWN) <= 0
 	replace_btn.disabled = player.get_action_uses_left(Action.REPLACE_PAWN) <= 0
 	ban_btn.disabled = player.get_action_uses_left(Action.BAN_CELL) <= 0
 	# Update the labels text
-	remove_label.text = str(player.get_action_uses_left(Action.REMOVE_PAWN))
 	replace_label.text = str(player.get_action_uses_left(Action.REPLACE_PAWN))
 	ban_label.text = str(player.get_action_uses_left(Action.BAN_CELL))
 
 # Listeners for the actions buttons pressed signal
 func _on_place_btn_pressed() -> void:
 	human_player_action_type = Action.PLACE_PAWN
-
-func _on_remove_btn_pressed() -> void:
-	human_player_action_type = Action.REMOVE_PAWN
 
 func _on_replace_btn_pressed() -> void:
 	human_player_action_type = Action.REPLACE_PAWN

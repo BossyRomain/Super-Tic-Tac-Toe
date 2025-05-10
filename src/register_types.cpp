@@ -8,7 +8,6 @@
 #include "players/player.h"
 #include "actions/action.h"
 #include "actions/action_place_pawn.h"
-#include "actions/action_remove_pawn.h"
 #include "actions/action_replace_pawn.h"
 #include "actions/action_ban_cell.h"
 #include "game_state/game_state.h"
@@ -27,7 +26,6 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(GameState);
 	GDREGISTER_ABSTRACT_CLASS(Action);
 	GDREGISTER_CLASS(ActionPlacePawn);
-	GDREGISTER_CLASS(ActionRemovePawn);
 	GDREGISTER_CLASS(ActionReplacePawn);
 	GDREGISTER_CLASS(ActionBanCell);
 	GDREGISTER_CLASS(ActionsFactory);

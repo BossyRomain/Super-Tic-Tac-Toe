@@ -1,43 +1,8 @@
 #include "mcts/mcts.h"
 #include <godot_cpp/core/class_db.hpp>
-#include "actions/action_place_pawn.h"
-#include "actions/action_remove_pawn.h"
-#include "actions/action_replace_pawn.h"
-#include "actions/action_ban_cell.h"
 #include "actions/actions_factory.h"
 
 using namespace godot;
-
-std::vector<Action*> actions_for_state(GameState *game_state) {
-    std::vector<Action*> actions;
-
-    const Board *board = game_state->get_board();
-    const Player *player = game_state->current_player();
-
-    for(int row = 0; row < board->get_rows(); row++) {
-        for(int col = 0; col < board->get_cols(); col++) {
-            Vector2i coords(col, row);
-            int cell = board->get_cell_at(coords);
-
-            if(player->can_use_action(PLACE_PAWN) && cell == EMPTY_CELL) {
-                actions.push_back(ActionsFactory::create_place_pawn_action(coords));
-            }
-            if(player->can_use_action(REMOVE_PAWN) && cell > EMPTY_CELL && cell != player->get_id()) {
-                actions.push_back(ActionsFactory::create_remove_pawn_action(coords));
-            }
-            if(player->can_use_action(REPLACE_PAWN) && cell > EMPTY_CELL && cell != player->get_id()) {
-                actions.push_back(ActionsFactory::create_replace_pawn_action(coords));
-            }
-            if(player->can_use_action(BAN_CELL) && cell != BANNED_CELL) {
-                actions.push_back(ActionsFactory::create_ban_cell_action(coords));
-            }
-        }
-    }
-
-    return actions;
-}
-
-
 
 double ucb1(MCTSNode *node) {
     if(!node->visited()) {
@@ -73,7 +38,7 @@ MCTSNode* expand(MCTSNode *node) {
 int rollout(MCTSNode *node, int player_id) {
     GameState *game_state = node->get_game_state()->duplicate();
     while(!game_state->is_over()) {
-        std::vector<Action*> actions = actions_for_state(game_state);
+        std::vector<Action*> actions = game_state->available_actions();
         Action *action = actions[rand() % actions.size()]->duplicate();
         for(Action *action: actions) {
             memdelete(action);
@@ -155,7 +120,7 @@ bool MCTSNode::visited() const {
 
 void MCTSNode::expand() {
     if(is_leaf()) {
-        std::vector<Action*> actions = actions_for_state(m_game_state);
+        std::vector<Action*> actions = m_game_state->available_actions();
         for(Action *action: actions) {
             MCTSNode *child = new MCTSNode();
             child->set_parent(this);
