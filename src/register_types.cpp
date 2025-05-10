@@ -10,6 +10,7 @@
 #include "actions/action_place_pawn.h"
 #include "actions/action_replace_pawn.h"
 #include "actions/action_ban_cell.h"
+#include "actions/action_switch_pawns.h"
 #include "game_state/game_state.h"
 #include "actions/actions_factory.h"
 #include "mcts/mcts.h"
@@ -28,6 +29,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(ActionPlacePawn);
 	GDREGISTER_CLASS(ActionReplacePawn);
 	GDREGISTER_CLASS(ActionBanCell);
+	GDREGISTER_CLASS(ActionSwitchPawns);
 	GDREGISTER_CLASS(ActionsFactory);
 	GDREGISTER_CLASS(MCTS);
 }

@@ -25,8 +25,13 @@ Action* ActionsFactory::create_ban_cell_action(Vector2i coords) {
     return action;
 }
 
+Action* ActionsFactory::create_switch_pawns_action() {
+    return memnew(ActionSwitchPawns);
+}
+
 void ActionsFactory::_bind_methods() {
     ClassDB::bind_static_method(get_class_static(), D_METHOD("create_place_pawn_action", "coords"), &ActionsFactory::create_place_pawn_action);
     ClassDB::bind_static_method(get_class_static(), D_METHOD("create_replace_pawn_action", "coords"), &ActionsFactory::create_replace_pawn_action);
     ClassDB::bind_static_method(get_class_static(), D_METHOD("create_ban_cell_action", "coords"), &ActionsFactory::create_ban_cell_action);
+    ClassDB::bind_static_method(get_class_static(), D_METHOD("create_switch_pawns_action"), &ActionsFactory::create_switch_pawns_action);
 }

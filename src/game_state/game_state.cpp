@@ -35,6 +35,7 @@ int GameState::nb_players() const {
 }
 
 void GameState::add_player(Player *player) {
+    player->set_id(m_players.size() + 1);
     m_players.push_back(player);
 }
 
@@ -63,6 +64,9 @@ std::vector<Action*> GameState::available_actions() {
             }
             if(player->can_use_action(BAN_CELL) && cell != BANNED_CELL) {
                 actions.push_back(ActionsFactory::create_ban_cell_action(coords));
+            }
+            if(player->can_use_action(SWITCH_PAWNS)) {
+                actions.push_back(ActionsFactory::create_switch_pawns_action());
             }
         }
     }

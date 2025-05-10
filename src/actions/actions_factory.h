@@ -5,6 +5,7 @@
 #include "actions/action_place_pawn.h"
 #include "actions/action_replace_pawn.h"
 #include "actions/action_ban_cell.h"
+#include "actions/action_switch_pawns.h"
 
 namespace godot {
 
@@ -22,6 +23,8 @@ public:
     static Action* create_replace_pawn_action(Vector2i coords);
 
     static Action* create_ban_cell_action(Vector2i coords);
+
+    static Action* create_switch_pawns_action();
 
 protected:
 

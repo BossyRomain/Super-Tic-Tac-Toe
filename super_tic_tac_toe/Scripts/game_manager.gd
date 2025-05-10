@@ -10,10 +10,12 @@ signal action_choosed(ction)
 @export var place_btn: Button
 @export var replace_btn: Button
 @export var ban_btn: Button
+@export var switch_btn: Button
 
 @export_category("Actions Labels")
 @export var replace_label: Label
 @export var ban_label: Label
+@export var switch_label: Label
 
 @export_category("Menus")
 @export var game_over_menu: Control
@@ -51,6 +53,7 @@ func _ready() -> void:
 	place_btn.pressed.connect(_on_place_btn_pressed)
 	replace_btn.pressed.connect(_on_replace_btn_pressed)
 	ban_btn.pressed.connect(_on_ban_btn_pressed)
+	switch_btn.pressed.connect(_on_switch_btn_pressed)
 	
 	game_over_menu.visible = false
 	pause_menu.visible = false
@@ -92,11 +95,11 @@ func _init_players() -> void:
 		players_infos_container.add_child(player_infos)
 		
 		var player = Player.new()
-		player.id = i + 1
 		player.type = Config.players_types[i]
 		player.set_action_uses_left(Action.PLACE_PAWN, 10000)
 		player.set_action_uses_left(Action.REPLACE_PAWN, 2)
 		player.set_action_uses_left(Action.BAN_CELL, 2)
+		player.set_action_uses_left(Action.SWITCH_PAWNS, 1)
 		
 		game_state.add_player(player)
 
@@ -144,15 +147,19 @@ func set_human_player_action(type: int) -> void:
 			replace_btn.grab_focus()
 		Action.BAN_CELL:
 			ban_btn.grab_focus()
+		Action.SWITCH_PAWNS:
+			switch_btn.grab_focus()
 
 # Update the actions buttons and labels a player
 func update_actions_ui(player: Player) -> void:
 	# Update the buttons state
 	replace_btn.disabled = player.get_action_uses_left(Action.REPLACE_PAWN) <= 0
 	ban_btn.disabled = player.get_action_uses_left(Action.BAN_CELL) <= 0
+	switch_btn.disabled = player.get_action_uses_left(Action.SWITCH_PAWNS) <= 0
 	# Update the labels text
 	replace_label.text = str(player.get_action_uses_left(Action.REPLACE_PAWN))
 	ban_label.text = str(player.get_action_uses_left(Action.BAN_CELL))
+	switch_label.text = str(player.get_action_uses_left(Action.SWITCH_PAWNS))
 
 # Listeners for the actions buttons pressed signal
 func _on_place_btn_pressed() -> void:
@@ -163,6 +170,10 @@ func _on_replace_btn_pressed() -> void:
 
 func _on_ban_btn_pressed() -> void:
 	human_player_action_type = Action.BAN_CELL
+
+func _on_switch_btn_pressed() -> void:
+	var action = ActionsFactory.create_switch_pawns_action()
+	action_choosed.emit(action)
 
 func _on_pause_menu_unpause() -> void:
 	pause_menu.visible = false

@@ -10,6 +10,7 @@ namespace godot {
 #define PLACE_PAWN 0
 #define REPLACE_PAWN 1
 #define BAN_CELL 2
+#define SWITCH_PAWNS 3
 
 class GameState;
 

@@ -37,7 +37,7 @@ script = ExtResource("1_ebmjs")
 tiles_tile_map = NodePath("../GameManager/TilesLayer")
 pawns_tile_map = NodePath("../GameManager/PawnsLayer")
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map", "pawns_tile_map", "place_btn", "replace_btn", "ban_btn", "replace_label", "ban_label", "game_over_menu", "players_infos_container", "pause_menu", "current_player_label")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map", "pawns_tile_map", "place_btn", "replace_btn", "ban_btn", "switch_btn", "replace_label", "ban_label", "switch_label", "game_over_menu", "players_infos_container", "pause_menu", "current_player_label")]
 process_mode = 1
 script = ExtResource("3_wrm1d")
 tiles_tile_map = NodePath("TilesLayer")
@@ -45,8 +45,10 @@ pawns_tile_map = NodePath("PawnsLayer")
 place_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer/PlaceBtn")
 replace_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceBtn")
 ban_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanBtn")
+switch_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer5/SwitchBtn")
 replace_label = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceLabel")
 ban_label = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanLabel")
+switch_label = NodePath("../Control/VBoxContainer/AspectRatioContainer5/SwitchLabel")
 game_over_menu = NodePath("../Control/GameOverMenu")
 players_infos_container = NodePath("../Control/PlayersInfosContainer")
 pause_menu = NodePath("../Control/PauseMenu")
@@ -145,6 +147,28 @@ text = "Ban
 autowrap_mode = 2
 
 [node name="BanLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer4"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme = ExtResource("5_i6g32")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="SwitchBtn" type="Button" parent="Control/VBoxContainer/AspectRatioContainer5"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+tooltip_text = "Switch the pawns of the players"
+theme = ExtResource("5_i6g32")
+theme_override_font_sizes/font_size = 40
+text = "Switch
+"
+autowrap_mode = 2
+
+[node name="SwitchLabel" type="Label" parent="Control/VBoxContainer/AspectRatioContainer5"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme = ExtResource("5_i6g32")
