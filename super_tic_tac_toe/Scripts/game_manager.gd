@@ -126,6 +126,7 @@ func player_turn_begin() -> void:
 # When a player turn end
 func player_turn_end() -> void:
 	if game_state.is_over():
+		pause_menu.process_mode = Node.PROCESS_MODE_DISABLED
 		game_over_menu.visible = true
 		var winner = game_state.winner()
 		if winner > 0:

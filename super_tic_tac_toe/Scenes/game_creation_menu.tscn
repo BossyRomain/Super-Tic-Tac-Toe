@@ -21,6 +21,7 @@ atlas = SubResource("CompressedTexture2D_0df3i")
 region = Rect2(600, 0, 300, 300)
 
 [node name="GameCreationMenu" type="Control" node_paths=PackedStringArray("players_creation_menus")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
