@@ -5,6 +5,7 @@
 [ext_resource type="Theme" uid="uid://bncyjf4h4r7gw" path="res://Themes/main_theme.tres" id="1_k0w1u"]
 
 [node name="PauseMenu" type="Control"]
+process_mode = 3
 custom_minimum_size = Vector2(400, 200)
 layout_mode = 3
 anchors_preset = 8

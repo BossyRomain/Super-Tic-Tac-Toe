@@ -1,3 +1,4 @@
+class_name GameManager
 extends Node
 
 signal action_choosed(ction)
@@ -73,12 +74,7 @@ func _ready() -> void:
 	player_turn_begin()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause_game"):
-		pause_menu.visible = not pause_menu.visible
-		if not pause_menu.visible:
-			# Unpause the game
-			player_turn_begin()
-	elif event.is_action_pressed("action") and game_state.current_player().type == Player.HUMAN_PLAYER:
+	if event.is_action_pressed("action") and game_state.current_player().type == Player.HUMAN_PLAYER:
 		var mouse_pos = get_viewport().get_mouse_position()
 		mouse_pos = get_viewport().get_camera_2d().get_canvas_transform().affine_inverse() * mouse_pos
 		var coords = world_to_cell(mouse_pos)
@@ -143,7 +139,7 @@ func player_turn_end() -> void:
 
 # When the current player has choosed an action for his turn
 func _on_action_choosed(action: Action) -> void:
-	if pause_menu.visible:
+	if get_tree().paused:
 		return
 	var success = action.execute(game_state)
 	if success:
@@ -257,3 +253,10 @@ func _center_board() -> void:
 		)
 	tiles_tile_map.position = position
 	pawns_tile_map.position = position
+
+func _on_pause_menu_pause() -> void:
+	if ai_player_thread != null:
+		ai_player_thread.cancel_free()
+
+func _on_pause_menu_resume() -> void:
+	player_turn_begin()

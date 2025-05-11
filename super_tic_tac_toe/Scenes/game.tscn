@@ -1,6 +1,5 @@
-[gd_scene load_steps=13 format=3 uid="uid://coplkew0qe0cm"]
+[gd_scene load_steps=12 format=3 uid="uid://coplkew0qe0cm"]
 
-[ext_resource type="Script" uid="uid://boe7xvbd7llel" path="res://Scripts/board_manager.gd" id="1_ebmjs"]
 [ext_resource type="Texture2D" uid="uid://y8udc1w38uoa" path="res://Assets/tiles.png" id="2_qxrlw"]
 [ext_resource type="Texture2D" uid="uid://uso0f61kt88p" path="res://Assets/pawns.png" id="3_wowpa"]
 [ext_resource type="Script" uid="uid://btcodb2mi6na5" path="res://Scripts/game_manager.gd" id="3_wrm1d"]
@@ -31,11 +30,6 @@ tile_size = Vector2i(300, 300)
 sources/0 = SubResource("TileSetAtlasSource_v158k")
 
 [node name="Game" type="Node2D"]
-
-[node name="BoardManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map", "pawns_tile_map")]
-script = ExtResource("1_ebmjs")
-tiles_tile_map = NodePath("../GameManager/TilesLayer")
-pawns_tile_map = NodePath("../GameManager/PawnsLayer")
 
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map", "pawns_tile_map", "place_btn", "replace_btn", "ban_btn", "switch_btn", "replace_label", "ban_label", "switch_label", "game_over_menu", "players_infos_container", "pause_menu", "current_player_label")]
 process_mode = 1
@@ -221,4 +215,5 @@ anchor_bottom = 1.0
 offset_right = 300.0
 grow_vertical = 2
 
-[connection signal="unpause" from="Control/PauseMenu" to="GameManager" method="_on_pause_menu_unpause"]
+[connection signal="pause" from="Control/PauseMenu" to="GameManager" method="_on_pause_menu_pause"]
+[connection signal="resume" from="Control/PauseMenu" to="GameManager" method="_on_pause_menu_resume"]
