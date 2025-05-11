@@ -53,7 +53,12 @@ func _ready() -> void:
 	place_btn.pressed.connect(_on_place_btn_pressed)
 	replace_btn.pressed.connect(_on_replace_btn_pressed)
 	ban_btn.pressed.connect(_on_ban_btn_pressed)
-	switch_btn.pressed.connect(_on_switch_btn_pressed)
+	if Config.nb_players > 2:
+		switch_btn.pressed.connect(_on_switch_btn_pressed)
+	else:
+		switch_btn.visible = false
+		switch_btn.disabled = true
+		switch_label.visible = false
 	
 	game_over_menu.visible = false
 	pause_menu.visible = false
@@ -99,7 +104,7 @@ func _init_players() -> void:
 		player.set_action_uses_left(Action.PLACE_PAWN, 10000)
 		player.set_action_uses_left(Action.REPLACE_PAWN, 2)
 		player.set_action_uses_left(Action.BAN_CELL, 2)
-		player.set_action_uses_left(Action.SWITCH_PAWNS, 1)
+		player.set_action_uses_left(Action.SWITCH_PAWNS, 1 if Config.nb_players > 2 else 0)
 		
 		game_state.add_player(player)
 
@@ -201,13 +206,13 @@ func ai_think() -> void:
 	var nb_iters = 1
 	match game_state.current_player().type:
 		Player.AI_DUMB:
-			nb_iters = 100
+			nb_iters = 625
 		Player.AI_EASY:
-			nb_iters = 500
+			nb_iters = 1250
 		Player.AI_MEDIUM:
-			nb_iters = 1000
+			nb_iters = 2500
 		Player.AI_HARD:
-			nb_iters = 2000
+			nb_iters = 5000
 		Player.AI_LEGENDARY:
 			nb_iters = 10000
 	print("Start thinking for " + str(nb_iters) + " iterations")
