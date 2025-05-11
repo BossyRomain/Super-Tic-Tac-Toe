@@ -37,6 +37,13 @@ func _ready() -> void:
 	board.rows = 6
 	board.cols = 6
 	board.cell_updated.connect(_on_board_cell_updated)
+	var i = 0
+	while i < 4:
+		var coords = Vector2i(randi() % board.cols, randi() % board.rows)
+		if board.get_cell_at(coords) != Board.BANNED_CELL:
+			board.set_cell_at(coords, Board.BANNED_CELL)
+			i += 1
+	
 	game_state.set_board(board)
 	
 	assert(tiles_tile_map != null, "A TileMapLayer is needed to draw the board's tiles")
@@ -224,7 +231,8 @@ func ai_think() -> void:
 func _draw_tiles() -> void:
 	for r in range(6):
 		for c in range(6):
-			tiles_tile_map.set_cell(Vector2i(c, r), 0, Vector2i(0, 0), 0)
+			var coords = Vector2i(c, r)
+			_on_board_cell_updated(coords, game_state.get_board().get_cell_at(coords))
 
 # Scale the board to fit in the window
 func _scale_board() -> void:
