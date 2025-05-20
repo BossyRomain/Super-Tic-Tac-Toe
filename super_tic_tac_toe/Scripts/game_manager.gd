@@ -96,7 +96,7 @@ func _init_players() -> void:
 	
 	for i in range(Config.nb_players):
 		var texture = AtlasTexture.new()
-		texture.atlas = load("res://Assets/pawns.png")
+		texture.atlas = load("res://Assets/Textures/pawns.png")
 		texture.region = Rect2(300 * i, 0, 300, 300)
 		var player_infos = player_infos_scene.instantiate()
 		player_infos.set_player_name(Config.players_names[i])
