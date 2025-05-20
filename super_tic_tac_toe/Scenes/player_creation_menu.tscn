@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bom2f0gcitr0k"]
+[gd_scene load_steps=4 format=3 uid="uid://bom2f0gcitr0k"]
 
 [ext_resource type="Script" uid="uid://cbqn8lrrhnbm1" path="res://Scripts/player_creation_menu.gd" id="1_jadog"]
 [ext_resource type="Theme" uid="uid://bncyjf4h4r7gw" path="res://Themes/main_theme.tres" id="2_jadog"]
+[ext_resource type="Texture2D" uid="uid://uso0f61kt88p" path="res://Assets/Textures/pawns.png" id="2_yix1q"]
 
 [node name="PlayerCreationMenu" type="Control"]
 layout_mode = 3
@@ -11,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jadog")
+pawn_texture = ExtResource("2_yix1q")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
