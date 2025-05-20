@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cp4ifnioemrcw"
-path="res://.godot/imported/background.png-c6e0edb6ae00a576ddf31b14f0c4bf17.ctex"
+uid="uid://s3pysiutqsak"
+path="res://.godot/imported/infinity.png-e47024cfb308ead199b1972e500bb504.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/background.png"
-dest_files=["res://.godot/imported/background.png-c6e0edb6ae00a576ddf31b14f0c4bf17.ctex"]
+source_file="res://Assets/Textures/infinity.png"
+dest_files=["res://.godot/imported/infinity.png-e47024cfb308ead199b1972e500bb504.ctex"]
 
 [params]
 

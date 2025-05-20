@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://coplkew0qe0cm"]
+[gd_scene load_steps=13 format=3 uid="uid://coplkew0qe0cm"]
 
-[ext_resource type="Texture2D" uid="uid://y8udc1w38uoa" path="res://Assets/tiles.png" id="2_qxrlw"]
-[ext_resource type="Texture2D" uid="uid://uso0f61kt88p" path="res://Assets/pawns.png" id="3_wowpa"]
+[ext_resource type="Texture2D" uid="uid://y8udc1w38uoa" path="res://Assets/Textures/tiles.png" id="2_qxrlw"]
+[ext_resource type="Texture2D" uid="uid://uso0f61kt88p" path="res://Assets/Textures/pawns.png" id="3_wowpa"]
 [ext_resource type="Script" uid="uid://btcodb2mi6na5" path="res://Scripts/game_manager.gd" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://dxu7x68evg3b0" path="res://Scenes/game_over_menu.tscn" id="4_3dryh"]
+[ext_resource type="AudioStream" uid="uid://b51nxia2yxiph" path="res://Assets/Sounds/action_success.mp3" id="4_v158k"]
 [ext_resource type="Theme" uid="uid://bncyjf4h4r7gw" path="res://Themes/main_theme.tres" id="5_i6g32"]
-[ext_resource type="Texture2D" uid="uid://s3pysiutqsak" path="res://Assets/infinity.png" id="6_1l0tm"]
+[ext_resource type="Texture2D" uid="uid://s3pysiutqsak" path="res://Assets/Textures/infinity.png" id="6_1l0tm"]
 [ext_resource type="PackedScene" uid="uid://bwn30j1i6phxs" path="res://Scenes/pause_menu.tscn" id="8_v158k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1l0tm"]
@@ -31,7 +32,7 @@ sources/0 = SubResource("TileSetAtlasSource_v158k")
 
 [node name="Game" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map", "pawns_tile_map", "place_btn", "replace_btn", "ban_btn", "switch_btn", "replace_label", "ban_label", "switch_label", "game_over_menu", "players_infos_container", "pause_menu", "current_player_label")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("tiles_tile_map", "pawns_tile_map", "place_btn", "replace_btn", "ban_btn", "switch_btn", "replace_label", "ban_label", "switch_label", "current_player_label", "game_over_menu", "players_infos_container", "pause_menu", "action_success_player")]
 process_mode = 1
 script = ExtResource("3_wrm1d")
 tiles_tile_map = NodePath("TilesLayer")
@@ -43,16 +44,20 @@ switch_btn = NodePath("../Control/VBoxContainer/AspectRatioContainer5/SwitchBtn"
 replace_label = NodePath("../Control/VBoxContainer/AspectRatioContainer3/ReplaceLabel")
 ban_label = NodePath("../Control/VBoxContainer/AspectRatioContainer4/BanLabel")
 switch_label = NodePath("../Control/VBoxContainer/AspectRatioContainer5/SwitchLabel")
+current_player_label = NodePath("../Control/CurrentPlayerLabel")
 game_over_menu = NodePath("../Control/GameOverMenu")
 players_infos_container = NodePath("../Control/PlayersInfosContainer")
 pause_menu = NodePath("../Control/PauseMenu")
-current_player_label = NodePath("../Control/CurrentPlayerLabel")
+action_success_player = NodePath("ActionSuccessPlayer")
 
 [node name="TilesLayer" type="TileMapLayer" parent="GameManager"]
 tile_set = SubResource("TileSet_ebmjs")
 
 [node name="PawnsLayer" type="TileMapLayer" parent="GameManager"]
 tile_set = SubResource("TileSet_3dryh")
+
+[node name="ActionSuccessPlayer" type="AudioStreamPlayer" parent="GameManager"]
+stream = ExtResource("4_v158k")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0

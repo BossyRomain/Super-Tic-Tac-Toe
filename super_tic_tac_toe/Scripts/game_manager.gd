@@ -13,17 +13,19 @@ signal action_choosed(ction)
 @export var ban_btn: Button
 @export var switch_btn: Button
 
-@export_category("Actions Labels")
+@export_category("Labels")
 @export var replace_label: Label
 @export var ban_label: Label
 @export var switch_label: Label
+@export var current_player_label: Label
 
 @export_category("Menus")
 @export var game_over_menu: Control
 @export var players_infos_container: Control
 @export var pause_menu: Control
 
-@export var current_player_label: Label
+@export_category("Audio Players")
+@export var action_success_player: AudioStreamPlayer
 
 var human_player_action_type: int = Action.PLACE_PAWN
 var ai_player_thread: Thread = null
@@ -135,6 +137,7 @@ func player_turn_end() -> void:
 			game_over_menu.show_draw()
 	else:
 		print("End of " + Config.players_names[game_state.current_player().id - 1] + " turn")
+		action_success_player.play()
 		game_state.next_player()
 		player_turn_begin()
 
