@@ -42,7 +42,7 @@ func _ready() -> void:
 	board.cell_updated.connect(_on_board_cell_updated)
 	var i = 0
 	while i < 4:
-		var coords = Vector2i(randi() % board.cols, randi() % board.rows)
+		var coords = Vector2i(randi_range(1, board.cols - 2), randi_range(1, board.rows - 2))
 		if board.get_cell_at(coords) != Board.BANNED_CELL:
 			board.set_cell_at(coords, Board.BANNED_CELL)
 			i += 1
