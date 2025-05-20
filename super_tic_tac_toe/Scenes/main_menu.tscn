@@ -54,5 +54,19 @@ theme = ExtResource("2_48xlc")
 theme_override_font_sizes/font_size = 32
 text = "Exit"
 
+[node name="MainDevelopper" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+offset_right = 145.0
+grow_vertical = 0
+theme = ExtResource("2_48xlc")
+theme_override_font_sizes/font_size = 32
+text = "Made by Romain Bossy"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
