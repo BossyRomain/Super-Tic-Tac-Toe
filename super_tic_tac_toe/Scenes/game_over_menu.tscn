@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dfu8rwkge2ku0" path="res://Scripts/game_over_menu.gd" id="1_arass"]
 [ext_resource type="Theme" uid="uid://bncyjf4h4r7gw" path="res://Themes/main_theme.tres" id="2_i22rp"]
 [ext_resource type="Texture2D" uid="uid://cp4ifnioemrcw" path="res://Assets/Textures/background.png" id="3_dsdey"]
-[ext_resource type="AudioStream" uid="uid://h2ecgv7u12wm" path="res://Assets/Sounds/game_over.wav" id="4_eqaa1"]
-[ext_resource type="AudioStream" uid="uid://kxixx0ygl0hy" path="res://Assets/Sounds/game_victory.wav" id="4_q2job"]
+[ext_resource type="AudioStream" uid="uid://cm73srva670ut" path="res://Assets/Sounds/game_over.mp3" id="4_eqaa1"]
+[ext_resource type="AudioStream" uid="uid://dm8elyr0bj0" path="res://Assets/Sounds/victory.wav" id="4_q2job"]
 
 [node name="Control" type="Control"]
 process_mode = 3
@@ -78,11 +78,10 @@ stretch_mode = 4
 
 [node name="Victory_Player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_q2job")
-volume_db = -12.0
 
 [node name="Draw_Player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_eqaa1")
-volume_db = -12.0
+volume_db = -6.0
 
 [connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
